@@ -2,10 +2,12 @@
 #define JUEGO_H
 
 #include <QGraphicsView>
+#include <QGraphicsRectItem>
 #include <QGraphicsScene>
 #include <QDebug>
 #include "raqueta.h"
 #include "ventana.h"
+#include "bloques.h"
 
 class Juego : public QGraphicsView
 {
@@ -13,6 +15,9 @@ class Juego : public QGraphicsView
 public:
     Juego(QGraphicsView *parent=nullptr);
     Raqueta *raqueta=nullptr;
+    void Iniciar();
+    void CrearBloque(double y);
+
 
 protected:
     void keyPressEvent(QKeyEvent* evento);
