@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     bola.cpp \
+    bloques.cpp \
     juego.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 
 HEADERS += \
     bola.h \
+    bloques.h \
     juego.h \
     mainwindow.h \
     raqueta.h \
