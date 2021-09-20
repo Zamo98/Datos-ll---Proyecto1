@@ -27,3 +27,7 @@ void Raqueta::mover(QPoint p){
     if(x > anchoVentana-ancho) x = anchoVentana - ancho;
     setPos(x, y());
 }
+
+void Raqueta::disparo(){
+    qDebug() << "disparo";
+}

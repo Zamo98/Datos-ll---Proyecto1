@@ -15,9 +15,10 @@ public:
     void movDer();
     void movIzq();
     void mover(QPoint p);
+    void disparo();
 
 private:
-    int velocidad=10;
+    int velocidad=15;
 };
 
 #endif // RAQUETA_H
