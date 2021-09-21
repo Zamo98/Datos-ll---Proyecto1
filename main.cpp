@@ -3,7 +3,7 @@
 #include <QApplication>
 #include "juego.h"
 
-Juego *juego=nullptr;
+Juego *juego = nullptr;
 
 int main(int argc, char *argv[])
 {

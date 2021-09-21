@@ -8,6 +8,8 @@
 Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
 {
 
+
+
     //Dise;o de la ventana
 
     scene = new QGraphicsScene();
@@ -20,6 +22,9 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setScene(scene);
+
+    gameOver = false;
+    gameWin = false;
 
     //Dise;o y posiscion inicial de la raqueta
 
@@ -47,9 +52,29 @@ void Juego::CrearBloque(double y) //Dibujas los bloques
         }
         y += 40; //Distancia entre y
     }
+
+
+
 }
 
 void Juego::Iniciar() { //Inicializar los bloques
+
+    if (gameOver == true){
+
+        if (gameWin == true){
+            QList<QGraphicsItem*> allItems = scene->items();
+                    for (size_t i = 0,q = scene->items().size() ; i < q ; ++i){
+                        Bloques* bloques = dynamic_cast<Bloques*>(allItems[i]);
+                        if (bloques){
+                            scene->removeItem(bloques);
+                        }
+                    }
+        gameOver = false;
+        gameWin = false;
+        }
+
+    }
+
     CrearBloque(0);
 
 }
@@ -117,5 +142,10 @@ void Juego::jugadorPierde(){
 }
 
 void Juego::juegoTerminado(){
+    gameOver = true;
+    if(scene->items().size()==2){
+        gameWin = true;
+
+    }
 
 }
