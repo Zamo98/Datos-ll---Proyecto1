@@ -155,6 +155,11 @@ void Juego::mostrarPuntaje(){
     scene->addItem(texto);
 }
 
+void Juego::setPuntos(){
+    puntos+=1;
+    mostrarPuntaje();
+}
+
 void Juego::juegoTerminado(){
     scene->removeItem(bola);
     QGraphicsTextItem *texto = new QGraphicsTextItem;

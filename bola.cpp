@@ -101,6 +101,7 @@ void Bola::movimiento(){
 
             if (bolay> bloquey+22 && velocidadY < 0 )
              {
+                juego->setPuntos();
                 velocidadY = -velocidadY;
                 golpe = false;
                 juego->scene->removeItem(bloques);
@@ -108,6 +109,7 @@ void Bola::movimiento(){
               }
             if (bloquey > bolay+15 && velocidadY > 0 )
             {
+                juego->setPuntos();
                 velocidadY = -velocidadY;
                 golpe = false;
                 juego->scene->removeItem(bloques);
@@ -115,6 +117,7 @@ void Bola::movimiento(){
             }
             if (bolax> bloquex+50 && velocidadX < 0 )
             {
+                juego->setPuntos();
                 velocidadX = -velocidadX;
                 golpe = false;
                 juego->scene->removeItem(bloques);
@@ -122,6 +125,7 @@ void Bola::movimiento(){
             }
             if (bloquex > bolax+2 && velocidadX > 0 )
             {
+                juego->setPuntos();
                 velocidadX = -velocidadX;
                 golpe = false;
                 juego->scene->removeItem(bloques);

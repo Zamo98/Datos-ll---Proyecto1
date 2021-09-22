@@ -27,6 +27,9 @@ public:
     void Iniciar();
     void CrearBloque(double y);
     void juegoTerminado();
+    int puntos = 0;
+    void setPuntos();
+
 
 protected:
     void keyPressEvent(QKeyEvent* evento);
@@ -35,7 +38,6 @@ protected:
 
 private:
     void mostrarPuntaje();
-    int puntos = 0;
     int vidas = 5;
     QFont fuente;
     QGraphicsTextItem *texto=nullptr;
