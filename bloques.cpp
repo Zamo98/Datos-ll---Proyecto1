@@ -9,4 +9,5 @@ Bloques::Bloques(QGraphicsItem *parent) :QGraphicsRectItem(parent)
     brush.setColor(QColor(90, 40, 50, 255));
     setBrush(brush);
 
+
 }

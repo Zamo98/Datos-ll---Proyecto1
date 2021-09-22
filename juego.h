@@ -18,10 +18,14 @@ class Juego : public QGraphicsView
     Q_OBJECT
 public:
     Juego(QGraphicsView *parent=nullptr);
+    QGraphicsScene *scene=nullptr;
+    bool gameOver;
+    bool gameWin;
     Raqueta *raqueta=nullptr;
-    Bola *bola=nullptr;
+    Bola *bola;
     void Iniciar();
     void CrearBloque(double y);
+    void juegoTerminado();
 
 protected:
     void keyPressEvent(QKeyEvent* evento);
