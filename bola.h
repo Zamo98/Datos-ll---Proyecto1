@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QTimer>
 #include <QGraphicsScene>
+#include "raqueta.h"
 
 class Bola : public QObject, public QGraphicsPixmapItem
 {

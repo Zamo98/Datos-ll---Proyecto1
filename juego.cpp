@@ -14,7 +14,6 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
     scene->setSceneRect(0,0,anchoVentana, largoVentana);
     scene->setBackgroundBrush(QBrush(QImage(":/imagenes/fondo")));
     window()->setWindowIcon(QIcon(":/imagenes/icono2"));
-    window()->setWindowIcon(QIcon(":/imagenes/icono"));
     window()->setWindowTitle(nombreJuego);
     setFixedSize(anchoVentana, largoVentana);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -96,7 +95,8 @@ void Juego::mousePressEvent(QMouseEvent *evento){
         break;
 
     default:
-        break;    }
+        break;
+    }
 }
 
 
@@ -110,6 +110,9 @@ void Juego::mouseMoveEvent(QMouseEvent *evento){
 
 void Juego::jugadorPierde(){
 
+    vidas--;
+
+    if(vidas == 0) juegoTerminado();
     if(bola){
         bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
 
@@ -117,5 +120,13 @@ void Juego::jugadorPierde(){
 }
 
 void Juego::juegoTerminado(){
+    scene->removeItem(bola);
+    QGraphicsTextItem *texto = new QGraphicsTextItem;
+    texto -> setDefaultTextColor(Qt::white);
 
+    qDebug() << texto->font().pointSize();
+    QString mensaje = "Has perdido!";
+    texto->setPlainText(mensaje);
+    texto->setPos(anchoVentana/2,largoVentana/2);
+    scene->addItem(texto);
 }

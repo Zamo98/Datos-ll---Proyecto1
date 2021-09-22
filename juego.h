@@ -4,6 +4,8 @@
 #include <QGraphicsView>
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
+#include <QFontDatabase>
+#include <QGraphicsTextItem>
 #include <QDebug>
 #include "raqueta.h"
 #include "ventana.h"
@@ -29,6 +31,9 @@ protected:
 private:
     void juegoTerminado();
     QGraphicsScene *scene=nullptr;
+    int puntos = 0;
+    int vidas = 1;
+    QGraphicsTextItem *texto=nullptr;
 
 private slots:
     void jugadorPierde();
