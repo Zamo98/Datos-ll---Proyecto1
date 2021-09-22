@@ -17,6 +17,7 @@ public:
     void mover(QPoint p);
     void disparo();
 
+
 private:
     int velocidad=15;
 };

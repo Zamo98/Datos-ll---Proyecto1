@@ -20,8 +20,8 @@ Bola::Bola(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem()
 
 }
 
-void Bola::move(){
-    colision();
+void Bola::seguirRaqueta(){
+    setPos(juego->raqueta->x() + (juego->raqueta->ancho - anchoBola)/2, juego->raqueta->y() - largoBola);
 }
 
 void Bola::setLanzamiento(bool value){
@@ -56,6 +56,10 @@ void Bola::movimiento(){
 
         }
     }
+    else if(!lanzada){
+        seguirRaqueta();
+    }
+
     vX = x()+velocidadX;
     vY = y()+velocidadY;
     if(vX < 0 || vX+anchoBola > anchoVentana){

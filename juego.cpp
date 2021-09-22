@@ -7,9 +7,6 @@
 
 Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
 {
-
-
-
     //Dise;o de la ventana
 
     scene = new QGraphicsScene();
@@ -35,6 +32,10 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
     bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
     connect(bola, SIGNAL(bolaPerdida()), this, SLOT(jugadorPierde()));
     scene->addItem(bola);
+
+    texto = new QGraphicsTextItem();
+    texto->setDefaultTextColor(Qt::white);
+    mostrarPuntaje();
 
     show();
 }
@@ -142,6 +143,16 @@ void Juego::jugadorPierde(){
         bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
 
     }
+}
+
+void Juego::mostrarPuntaje(){
+    if(scene->items().contains(texto)) scene->removeItem(texto);
+    texto->setPlainText("Puntos: " + QString::number(puntos));
+
+    texto->setPos((anchoVentana - 1000), largoVentana-70);
+
+    //texto->setPos((anchoVentana - (0.68 * texto->font().pointSize()*texto->toPlainText().length()))/2, largoVentana-70);
+    scene->addItem(texto);
 }
 
 void Juego::juegoTerminado(){

@@ -20,12 +20,13 @@ public:
     bool lanzada = false;
     void setLanzamiento(bool value);
     //void move();
+    void seguirRaqueta();
 
 
 
 private slots:
     void movimiento();
-    void move();
+    //void move();
 
 private:
     //modi

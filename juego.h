@@ -11,6 +11,7 @@
 #include "ventana.h"
 #include "bola.h"
 #include "bloques.h"
+#include <QFont>
 
 
 class Juego : public QGraphicsView
@@ -33,10 +34,10 @@ protected:
     void mouseMoveEvent(QMouseEvent* evento);
 
 private:
-    void juegoTerminado();
-    QGraphicsScene *scene=nullptr;
+    void mostrarPuntaje();
     int puntos = 0;
-    int vidas = 1;
+    int vidas = 5;
+    QFont fuente;
     QGraphicsTextItem *texto=nullptr;
 
 private slots:

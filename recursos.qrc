@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>imagenes/raqueta.png</file>
-        <file>imagenes/icono.png</file>
         <file>imagenes/fondo.jpg</file>
         <file>imagenes/icono2.png</file>
         <file>imagenes/bola.png</file>
