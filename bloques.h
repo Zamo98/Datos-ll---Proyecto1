@@ -1,6 +1,7 @@
 #ifndef BLOQUES_H
 #define BLOQUES_H
- #include <QGraphicsRectItem>
+#include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 
 class Bloques: public QGraphicsRectItem
 {

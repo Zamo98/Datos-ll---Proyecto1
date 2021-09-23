@@ -17,7 +17,10 @@ Bola::Bola(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem()
     connect(timer, SIGNAL(timeout()),this, SLOT(movimiento()));
     timer->start(10);
 
-
+    QMediaPlaylist *rebote = new QMediaPlaylist();
+    rebote->addMedia(QUrl("qrc:/sonidos/resources_sounds_bounce.wav"));
+    golpeBloques = new QMediaPlayer();
+    golpeBloques->setPlaylist(rebote);
 }
 
 void Bola::seguirRaqueta(){
@@ -26,6 +29,11 @@ void Bola::seguirRaqueta(){
 
 void Bola::setLanzamiento(bool value){
     lanzada = value;
+}
+
+void Bola::playSound(){
+    if(golpeBloques->state() == QMediaPlayer::PlayingState) golpeBloques->setPosition(0);
+    else if(golpeBloques->state() == QMediaPlayer::StoppedState) golpeBloques->play();
 }
 
 void Bola::movimiento(){
@@ -47,13 +55,13 @@ void Bola::movimiento(){
     if(lanzada){
         for(auto i : colliding_items){
             if(typeid(*i) == typeid (Raqueta) && !golpe){
+                playSound();
+
                 velocidadY = -velocidadY;
                 setPos(x()+velocidadX, y()+velocidadY);
                 golpe = true;
                 return;
             }
-
-
         }
     }
     else if(!lanzada){
@@ -64,12 +72,14 @@ void Bola::movimiento(){
     vY = y()+velocidadY;
     if(vX < 0 || vX+anchoBola > anchoVentana){
         velocidadX = -velocidadX;
+        //playSound();
         golpe = false;
         cout <<anchoBola;
         cout <<largoBola;
     }
     if(vY < 0 || vY+largoBola > largoVentana){
         velocidadY = -velocidadY;
+        //playSound();
         golpe = false;
     }
 
@@ -78,11 +88,10 @@ void Bola::movimiento(){
 
     for (size_t i = 0, n = colliding_items.size(); i < n; ++i)
     {
-        qDebug() <<"Aqui1";
+        //qDebug() <<"Aqui1";
         Bloques* bloques = dynamic_cast<Bloques*>(colliding_items[i]);
         if (bloques)
         {
-
             //Posiciones de la bola y de los bloques
             bolax = pos().x();
             bolay = pos().y();
@@ -101,7 +110,9 @@ void Bola::movimiento(){
 
             if (bolay> bloquey+22 && velocidadY < 0 )
              {
-                juego->setPuntos();
+                //juego->raqueta->aumentarRaqueta();//aumeta el tamaño de la raqueta(si funciona)
+                playSound();//reproduce el sonido
+                juego->setPuntos();//cambia el puntaje
                 velocidadY = -velocidadY;
                 golpe = false;
                 juego->scene->removeItem(bloques);
@@ -109,6 +120,7 @@ void Bola::movimiento(){
               }
             if (bloquey > bolay+15 && velocidadY > 0 )
             {
+                playSound();
                 juego->setPuntos();
                 velocidadY = -velocidadY;
                 golpe = false;
@@ -117,6 +129,7 @@ void Bola::movimiento(){
             }
             if (bolax> bloquex+50 && velocidadX < 0 )
             {
+                playSound();
                 juego->setPuntos();
                 velocidadX = -velocidadX;
                 golpe = false;
@@ -125,6 +138,7 @@ void Bola::movimiento(){
             }
             if (bloquex > bolax+2 && velocidadX > 0 )
             {
+                playSound();
                 juego->setPuntos();
                 velocidadX = -velocidadX;
                 golpe = false;

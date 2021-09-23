@@ -31,3 +31,14 @@ void Raqueta::mover(QPoint p){
 void Raqueta::disparo(){
     qDebug() << "disparo";
 }
+
+void Raqueta::reducirRaqueta(){
+    nuevoAncho -= 10;
+    setPixmap(QPixmap(":/imagenes/raqueta").scaledToWidth(nuevoAncho,Qt::TransformationMode(0)));
+}
+
+void Raqueta::aumentarRaqueta(){
+    nuevoAncho += 10;
+    setPixmap(QPixmap(":/imagenes/raqueta").scaledToWidth(nuevoAncho,Qt::TransformationMode(0)));
+
+}

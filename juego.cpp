@@ -7,7 +7,7 @@
 
 Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
 {
-    //Dise;o de la ventana
+    //Diseño de la ventana
 
     scene = new QGraphicsScene();
     scene->setSceneRect(0,0,anchoVentana, largoVentana);
@@ -22,7 +22,7 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
     gameOver = false;
     gameWin = false;
 
-    //Dise;o y posiscion inicial de la raqueta
+    //Diseño y posiscion inicial de la raqueta
 
     raqueta = new Raqueta();
     raqueta->setPos((anchoVentana - raqueta->ancho)/2, largoVentana-100);
@@ -33,9 +33,35 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
     connect(bola, SIGNAL(bolaPerdida()), this, SLOT(jugadorPierde()));
     scene->addItem(bola);
 
+    int identificador = QFontDatabase::addApplicationFont(":/fuente/letras.ttf");
+    if(identificador>=0){
+        qDebug()<<"Fuente cargada";
+        QString family = QFontDatabase::applicationFontFamilies(identificador).at(0);
+        fuente = QFont(family, 24);
+    }
+    else{
+        qDebug()<<"Error al cargar la fuente";
+    }
+
     texto = new QGraphicsTextItem();
     texto->setDefaultTextColor(Qt::white);
+    texto->setFont(fuente);
     mostrarPuntaje();
+
+    //Reproduce musica de fondo
+    QMediaPlaylist *musica = new QMediaPlaylist();
+    musica->addMedia(QUrl("qrc:/sonidos/tono_arkanoid_amstrad_cpc_1987.mp3"));
+    musica->setPlaybackMode(QMediaPlaylist::Loop);
+    reproducir = new QMediaPlayer();
+    reproducir->setPlaylist(musica);
+    reproducir->setVolume(10);
+    reproducir->play();
+
+    //Reproduce sonido game over
+    QMediaPlaylist *sonido = new QMediaPlaylist();
+    sonido->addMedia(QUrl("qrc:/sonidos/game_over.mp3"));
+    pierdes = new QMediaPlayer();
+    pierdes->setPlaylist(sonido);
 
     show();
 }
@@ -136,12 +162,17 @@ void Juego::mouseMoveEvent(QMouseEvent *evento){
 
 void Juego::jugadorPierde(){
 
-    vidas--;
+    //vidas--;
 
-    if(vidas == 0) juegoTerminado();
+    //if(vidas == 0) juegoTerminado();
     if(bola){
+        if(raqueta->nuevoAncho != 50){
+        raqueta->reducirRaqueta();
         bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
-
+        }
+        else{
+            juegoTerminado();
+        }
     }
 }
 
@@ -162,14 +193,19 @@ void Juego::setPuntos(){
 
 void Juego::juegoTerminado(){
     scene->removeItem(bola);
+    scene->removeItem(raqueta);
     QGraphicsTextItem *texto = new QGraphicsTextItem;
     texto -> setDefaultTextColor(Qt::white);
-
+    texto->setFont(fuente);
     qDebug() << texto->font().pointSize();
     QString mensaje = "Has perdido!";
     texto->setPlainText(mensaje);
-    texto->setPos(anchoVentana/2,largoVentana/2);
+    texto->setPos(400,largoVentana/2);
     scene->addItem(texto);
+
+    pierdes->play();
+    reproducir->pause();
+
     gameOver = true;
     if(scene->items().size()==2){
         gameWin = true;

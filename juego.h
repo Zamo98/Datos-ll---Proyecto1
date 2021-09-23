@@ -41,6 +41,8 @@ private:
     int vidas = 5;
     QFont fuente;
     QGraphicsTextItem *texto=nullptr;
+    QMediaPlayer *pierdes=nullptr;
+    QMediaPlayer *reproducir=nullptr;
 
 private slots:
     void jugadorPierde();
