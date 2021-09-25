@@ -3,11 +3,6 @@
 #include <QMouseEvent>
 #include <QIcon>
 #include "bloques.h"
-#include <stdlib.h>
-#include <time.h>
-#include<iostream>
-#include <stdio.h>
-using namespace std;
 
 
 Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
@@ -23,7 +18,6 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setScene(scene);
-
 
     gameOver = false;
     gameWin = false;
@@ -74,45 +68,16 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
 
 void Juego::CrearBloque(double y) //Dibujas los bloques
 {
-    QList<QGraphicsItem *> colliding_items;
-    int num;
-    srand(time(NULL));
-    double bloquex;
-    double bloquey;
-    double bloqueX;
-    double bloqueY;
-
-    for (size_t k = 0, j = 4; k < j; ++k) //Creacion de columnas
+    for (size_t k = 0, j = 5; k < j; ++k) //Creacion de columnas
     {
         for (size_t i = 0, n = 10; i < n; ++i) //Creacion de filas
         {
-            num =1 + rand() % (5);
-
-            qDebug() <<num;
-            Bloques* bloques = new Bloques(num);
-            bloques->setPos(i*103,y); //Posicion en x,y
+            Bloques* bloques = new Bloques();
+            bloques->setPos(i*107,y); //Posicion en x,y
             scene->addItem(bloques);
-            bloquex = bloques->pos().x();
-            bloquey = bloques->pos().y();
-            bloqueX = bloques ->scenePos().x();
-            bloqueY = bloques ->scenePos().y();
-
-
-            bloques->Clasificacion(num, bloqueX, bloqueY);
-
-
-
         }
-        y += 57; //Distancia entre y
+        y += 40; //Distancia entre y
     }
-
-    //size_t i = 0, n = colliding_items.size(); i < n; ++i
-
-
-
-
-
-
 
 
 
@@ -137,7 +102,6 @@ void Juego::Iniciar() { //Inicializar los bloques
     }
 
     CrearBloque(0);
-
 
 }
 
@@ -193,17 +157,14 @@ void Juego::mouseMoveEvent(QMouseEvent *evento){
     if(raqueta){
         raqueta->mover(evento->pos());
 
-
     }
 }
 
 void Juego::jugadorPierde(){
 
-
     //vidas--;
 
     //if(vidas == 0) juegoTerminado();
-
     if(bola){
         if(raqueta->nuevoAncho != 50){
         raqueta->reducirRaqueta();
