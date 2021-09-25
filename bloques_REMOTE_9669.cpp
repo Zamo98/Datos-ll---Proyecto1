@@ -26,7 +26,6 @@ Bloques::Bloques(int _color, QGraphicsItem *parent) : QGraphicsRectItem(parent)
     //brush.setStyle(Qt::SolidPattern);
     //brush.setColor(QColor(90, 40, 50, 255));
     //setBrush(brush);
-
     if (color == 1){
         setRect( 0,0,95,55);
         QBrush brush;
