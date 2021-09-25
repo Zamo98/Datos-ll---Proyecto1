@@ -13,7 +13,6 @@ SOURCES += \
     bloques.cpp \
     juego.cpp \
     main.cpp \
-    mainwindow.cpp \
     raqueta.cpp \
     ventana.cpp
 
@@ -21,12 +20,10 @@ HEADERS += \
     bola.h \
     bloques.h \
     juego.h \
-    mainwindow.h \
     raqueta.h \
     ventana.h
 
-FORMS += \
-    mainwindow.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
