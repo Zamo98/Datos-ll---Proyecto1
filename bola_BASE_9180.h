@@ -6,10 +6,6 @@
 #include <QDebug>
 #include <QTimer>
 #include <QGraphicsScene>
-#include <QMediaPlayer>
-#include <QMediaPlaylist>
-#include "raqueta.h"
-#include <list>
 
 class Bola : public QObject, public QGraphicsPixmapItem
 {
@@ -20,24 +16,21 @@ public:
     int largoBola = 0;
     int vX;
     int vY;
-    int gC = 1;
-    int gD = 1;
-    int gT = 1;
     bool lanzada = false;
     void setLanzamiento(bool value);
-    void seguirRaqueta();
+    //void move();
+
 
 
 private slots:
     void movimiento();
+    void move();
 
 private:
     //modi
-    int velocidadX = 3;
-    int velocidadY = 3;
+    int velocidadX = -3;
+    int velocidadY = -3;
     bool golpe = false;
-    QMediaPlayer *golpeBloques = nullptr;
-    void playSound();
 
 signals:
     void bolaPerdida();

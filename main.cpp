@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     //ventana.show();
     juego = new Juego();
     juego->Iniciar();
+
     return a.exec();
 
 }

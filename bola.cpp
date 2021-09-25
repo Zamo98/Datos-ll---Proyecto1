@@ -7,6 +7,8 @@
 extern Juego* juego;
 using namespace std;
 
+
+
 Bola::Bola(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem()
 {
     setPixmap(QPixmap(":/imagenes/bola"));
@@ -16,7 +18,6 @@ Bola::Bola(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem()
     QTimer *timer = new QTimer();
     connect(timer, SIGNAL(timeout()),this, SLOT(movimiento()));
     timer->start(10);
-
     QMediaPlaylist *rebote = new QMediaPlaylist();
     rebote->addMedia(QUrl("qrc:/sonidos/resources_sounds_bounce.wav"));
     golpeBloques = new QMediaPlayer();
@@ -26,6 +27,7 @@ Bola::Bola(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem()
 void Bola::seguirRaqueta(){
     setPos(juego->raqueta->x() + (juego->raqueta->ancho - anchoBola)/2, juego->raqueta->y() - largoBola);
 }
+
 
 void Bola::setLanzamiento(bool value){
     lanzada = value;
@@ -108,43 +110,96 @@ void Bola::movimiento(){
 
             }
 
-            if (bolay> bloquey+22 && velocidadY < 0 )
-             {
-                //juego->raqueta->aumentarRaqueta();//aumeta el tamaño de la raqueta(si funciona)
-                playSound();//reproduce el sonido
-                juego->setPuntos();//cambia el puntaje
-                velocidadY = -velocidadY;
-                golpe = false;
-                juego->scene->removeItem(bloques);
-                continue;
-              }
-            if (bloquey > bolay+15 && velocidadY > 0 )
-            {
-                playSound();
-                juego->setPuntos();
-                velocidadY = -velocidadY;
-                golpe = false;
-                juego->scene->removeItem(bloques);
+
+            if ((bloques ->Comun(bloquex, bloquey)== true))
+            { //SEGUN YO UN CONDICIONAL PARA VER SI ES BLOQUE COMUN
+
+                if (bolay> bloquey+51 && velocidadY < 0 )
+                 {
+                    playSound();
+                    juego->setPuntos();
+                    velocidadY = -velocidadY;
+                    golpe = false;
+                    juego->scene->removeItem(bloques);
+                    continue;
+                }
+                if (bloquey > bolay+15 && velocidadY > 0 )
+                {
+                    playSound();
+                    juego->setPuntos();
+                    velocidadY = -velocidadY;
+                    golpe = false;
+                    juego->scene->removeItem(bloques);
+                    continue;
+                }
+                if (bolax> bloquex+84 && velocidadX < 0 )
+                {
+                    playSound();
+                    juego->setPuntos();
+                    velocidadX = -velocidadX;
+                    golpe = false;
+                    juego->scene->removeItem(bloques);
+                    continue;
+                }
+                if (bloquex > bolax+2 && velocidadX > 0 )
+                {
+                    playSound();
+                    juego->setPuntos();
+                    velocidadX = -velocidadX;
+                    golpe = false;
+                    juego->scene->removeItem(bloques);
+                    continue;
+                }
                 continue;
             }
-            if (bolax> bloquex+50 && velocidadX < 0 )
-            {
-                playSound();
-                juego->setPuntos();
-                velocidadX = -velocidadX;
-                golpe = false;
-                juego->scene->removeItem(bloques);
-                continue;
+            else{
+
+                qDebug()<<"Hola";
+                if ((bloques ->Profundo(bloquex, bloquey)== true))
+                {
+                     qDebug()<<"Estoy en profundos";
+                    if (bolay> bloquey+51 && velocidadY < 0 )
+                     {
+                        playSound();
+                        juego->setPuntos();
+                        velocidadY = -velocidadY;
+                        golpe = false;
+                        //juego->scene->removeItem(bloques);
+                        continue;
+                    }
+                    if (bloquey > bolay+15 && velocidadY > 0 )
+                    {
+                        playSound();
+                        juego->setPuntos();
+                        velocidadY = -velocidadY;
+                        golpe = false;
+                        //juego->scene->removeItem(bloques);
+                        continue;
+                    }
+                    if (bolax> bloquex+84 && velocidadX < 0 )
+                    {
+                        playSound();
+                        juego->setPuntos();
+                        velocidadX = -velocidadX;
+                        golpe = false;
+                        //juego->scene->removeItem(bloques);
+                        continue;
+                    }
+                    if (bloquex > bolax+2 && velocidadX > 0 )
+                    {
+                        playSound();
+                        juego->setPuntos();
+                        velocidadX = -velocidadX;
+                        golpe = false;
+                        //juego->scene->removeItem(bloques);
+                        continue;
+                    }
+                    continue;
+                }
             }
-            if (bloquex > bolax+2 && velocidadX > 0 )
-            {
-                playSound();
-                juego->setPuntos();
-                velocidadX = -velocidadX;
-                golpe = false;
-                juego->scene->removeItem(bloques);
-                continue;
-            }
+
+
+
         }
 
     }
