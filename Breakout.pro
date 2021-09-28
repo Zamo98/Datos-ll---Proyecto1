@@ -11,16 +11,22 @@ CONFIG += c++11
 SOURCES += \
     bola.cpp \
     bloques.cpp \
+    comun.cpp \
+    dobles.cpp \
     juego.cpp \
     main.cpp \
     raqueta.cpp \
+    triples.cpp \
     ventana.cpp
 
 HEADERS += \
     bola.h \
     bloques.h \
+    comun.h \
+    dobles.h \
     juego.h \
     raqueta.h \
+    triples.h \
     ventana.h
 
 FORMS +=

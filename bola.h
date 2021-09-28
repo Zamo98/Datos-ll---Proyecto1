@@ -10,6 +10,7 @@
 #include <QMediaPlaylist>
 #include "raqueta.h"
 #include <list>
+#include "comun.h"
 
 class Bola : public QObject, public QGraphicsPixmapItem
 {
@@ -23,6 +24,7 @@ public:
     int gC = 1;
     int gD = 1;
     int gT = 1;
+    Comun *bloquesito;
     bool lanzada = false;
     void setLanzamiento(bool value);
     void seguirRaqueta();
@@ -33,8 +35,8 @@ private slots:
 
 private:
     //modi
-    int velocidadX = 3;
-    int velocidadY = 3;
+    int velocidadX = 2;
+    int velocidadY = 2;
     bool golpe = false;
     QMediaPlayer *golpeBloques = nullptr;
     void playSound();

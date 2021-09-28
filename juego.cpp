@@ -7,6 +7,9 @@
 #include <time.h>
 #include<iostream>
 #include <stdio.h>
+#include "comun.h"
+#include "dobles.h"
+
 using namespace std;
 
 
@@ -35,7 +38,9 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
     scene->addItem(raqueta);
 
     bola = new Bola();
+    //bola1 = new Bola();
     bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
+    //bola1->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
     connect(bola, SIGNAL(bolaPerdida()), this, SLOT(jugadorPierde()));
     scene->addItem(bola);
 
@@ -75,19 +80,21 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
 void Juego::CrearBloque(double y) //Dibujas los bloques
 {
     QList<QGraphicsItem *> colliding_items;
-    int num;
+
     srand(time(NULL));
+    int num;
     double bloquex;
     double bloquey;
     double bloqueX;
     double bloqueY;
 
+
     for (size_t k = 0, j = 4; k < j; ++k) //Creacion de columnas
     {
         for (size_t i = 0, n = 10; i < n; ++i) //Creacion de filas
         {
-            num =1 + rand() % (5);
 
+            /*
             qDebug() <<num;
             Bloques* bloques = new Bloques(num);
             bloques->setPos(i*103,y); //Posicion en x,y
@@ -96,11 +103,24 @@ void Juego::CrearBloque(double y) //Dibujas los bloques
             bloquey = bloques->pos().y();
             bloqueX = bloques ->scenePos().x();
             bloqueY = bloques ->scenePos().y();
+            if (num == 1){
 
+            }
 
-            bloques->Clasificacion(num, bloqueX, bloqueY);
+            bloques->Clasificacion(num, bloquex, bloquey);
+            */
+            num =1 + rand() % (2);
+            if (num ==1){
+                bloquesito = new Comun();
+                bloquesito->setPos(i*103,y);
+                scene->addItem(bloquesito);
+            }
+            if (num ==2){
+               bloquesito1 = new Dobles();
+               bloquesito1->setPos(i*103,y);
+               scene->addItem(bloquesito1);
 
-
+            }
 
         }
         y += 57; //Distancia entre y
@@ -110,10 +130,10 @@ void Juego::CrearBloque(double y) //Dibujas los bloques
 
 
 
+}
 
-
-
-
+void Juego:: Cc (QGraphicsItem* Bloquesito){
+    scene->addItem(bloquesito1);
 
 
 }
@@ -125,9 +145,13 @@ void Juego::Iniciar() { //Inicializar los bloques
         if (gameWin == true){
             QList<QGraphicsItem*> allItems = scene->items();
                     for (size_t i = 0,q = scene->items().size() ; i < q ; ++i){
-                        Bloques* bloques = dynamic_cast<Bloques*>(allItems[i]);
-                        if (bloques){
-                            scene->removeItem(bloques);
+                        Comun* bloquesito = dynamic_cast<Comun*>(allItems[i]);
+                        if (bloquesito){
+                            scene->removeItem(bloquesito);
+                        }
+                        Dobles* doble = dynamic_cast<Dobles*>(allItems[i]);
+                        if (doble){
+                            scene->removeItem(doble);
                         }
                     }
         gameOver = false;
@@ -226,7 +250,6 @@ void Juego::mostrarPuntaje(){
 }
 
 void Juego::setPuntos(){
-    puntos+=1;
     mostrarPuntaje();
 }
 

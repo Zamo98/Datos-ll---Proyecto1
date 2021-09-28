@@ -2,7 +2,7 @@
 #include <QBrush>
 #include <iostream>
 #include <list>
-
+#include <QGraphicsItemGroup>
 using namespace std ;
 
 list <double> :: iterator posi;
@@ -122,17 +122,26 @@ void Bloques:: Clasificacion(int _tipo, double _pX, double _pY){
 
 
 
+
+
 bool Bloques:: Comun(double _px,  double _py) {
 
     if (*find(ComunesX.begin(), ComunesX.end(), _px) == _px){ //Verifica si las posiciones estan en la lista
+        if (*find(ComunesX.begin(), ComunesX.end(), _px) == _px){
             if (*find(ComunesY.begin(), ComunesY.end(), _py) == _py){
 
-                //BORRA LAS POSICIONES DE LAS LISTAS
-                ComunesX.erase(remove(ComunesX.begin(), ComunesX.end(), _px), ComunesX.end());
-                ComunesY.erase(remove(ComunesY.begin(), ComunesY.end(), _py), ComunesY.end());
-                return true;
+                if (*find(ComunesY.end(), ComunesY.end(), _py) ==_py) {
+
+                    //BORRA LAS POSICIONES DE LAS LISTAS
+                    //ComunesX.erase(remove(ComunesX.begin(), ComunesX.end(), _px), ComunesX.end());
+                    //ComunesY.erase(remove(ComunesY.begin(), ComunesY.end(), _py), ComunesY.end());
+                    return true;
+                        }
+
+                 }
 
             }
+
     }
     return false;
 

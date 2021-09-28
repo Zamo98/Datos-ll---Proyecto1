@@ -1,10 +1,10 @@
 #ifndef BLOQUES_H
 #define BLOQUES_H
 #include <QGraphicsRectItem>
-
+#include <QIcon>
 #include <QGraphicsPixmapItem>
 
-
+#include <QGraphicsItemGroup>
 #include <list>
 #include <iostream>
 using namespace std;
@@ -15,6 +15,9 @@ public:
     Bloques(int color, QGraphicsItem* parent=0);
     //Bloques(void);
     int color;
+    bool V;
+    bool V2;
+
     int tipo;
     void Clasificacion(int num,double posX, double posY);
     int TipodeBloque(double px, double py);

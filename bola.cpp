@@ -3,9 +3,13 @@
 #include "raqueta.h"
 #include "bloques.h"
 #include "juego.h"
+#include "comun.h"
+#include "dobles.h"
 #include "iostream"
 extern Juego* juego;
+#include "comun.h"
 using namespace std;
+#include <QGraphicsScene>
 
 
 
@@ -114,7 +118,7 @@ void Bola::movimiento(){
             if ((bloques ->Comun(bloquex, bloquey)== true))
             { //SEGUN YO UN CONDICIONAL PARA VER SI ES BLOQUE COMUN
 
-                if (bolay> bloquey+51 && velocidadY < 0 )
+                if (bolay> bloquey && velocidadY < 0 )
                  {
                     playSound();
                     juego->setPuntos();
@@ -132,7 +136,7 @@ void Bola::movimiento(){
                     juego->scene->removeItem(bloques);
                     continue;
                 }
-                if (bolax> bloquex+84 && velocidadX < 0 )
+                if (bolax> bloquex && velocidadX < 0 )
                 {
                     playSound();
                     juego->setPuntos();
@@ -150,52 +154,7 @@ void Bola::movimiento(){
                     juego->scene->removeItem(bloques);
                     continue;
                 }
-                continue;
-            }
-            else{
 
-                qDebug()<<"Hola";
-                if ((bloques ->Profundo(bloquex, bloquey)== true))
-                {
-                     qDebug()<<"Estoy en profundos";
-                    if (bolay> bloquey+51 && velocidadY < 0 )
-                     {
-                        playSound();
-                        juego->setPuntos();
-                        velocidadY = -velocidadY;
-                        golpe = false;
-                        //juego->scene->removeItem(bloques);
-                        continue;
-                    }
-                    if (bloquey > bolay+15 && velocidadY > 0 )
-                    {
-                        playSound();
-                        juego->setPuntos();
-                        velocidadY = -velocidadY;
-                        golpe = false;
-                        //juego->scene->removeItem(bloques);
-                        continue;
-                    }
-                    if (bolax> bloquex+84 && velocidadX < 0 )
-                    {
-                        playSound();
-                        juego->setPuntos();
-                        velocidadX = -velocidadX;
-                        golpe = false;
-                        //juego->scene->removeItem(bloques);
-                        continue;
-                    }
-                    if (bloquex > bolax+2 && velocidadX > 0 )
-                    {
-                        playSound();
-                        juego->setPuntos();
-                        velocidadX = -velocidadX;
-                        golpe = false;
-                        //juego->scene->removeItem(bloques);
-                        continue;
-                    }
-                    continue;
-                }
             }
 
 
@@ -205,7 +164,174 @@ void Bola::movimiento(){
     }
 
     setPos(x()+velocidadX, y()+velocidadY);
+
+
+
+
+    // // // // // // // // // // // // //
+
+
+
+    for (size_t i = 0, n = colliding_items.size(); i < n; ++i)
+    {
+        //qDebug() <<"Aqui1";
+        Comun* comun = dynamic_cast<Comun*>(colliding_items[i]);
+
+        if (comun)
+        {
+            //Posiciones de la bola y de los bloques
+            bolax = pos().x();
+            bolay = pos().y();
+            bloquex = comun->pos().x();
+            bloquey = comun->pos().y();
+
+
+
+            if(juego->scene->items().size()==2)
+            {
+                velocidadY = 0;
+                velocidadX = 0;
+
+            }
+            if (bolay> bloquey-10 && velocidadY < 0 )
+             {
+                playSound();
+                juego->setPuntos();
+                velocidadY = -velocidadY;
+                golpe = false;
+                juego->puntos+=30;
+                juego->scene->removeItem(comun);
+                continue;
+
+            }
+            if (bloquey > bolay+15 && velocidadY > 0 )
+            {
+                playSound();
+                juego->setPuntos();
+                velocidadY = -velocidadY;
+                golpe = false;
+                juego->puntos+=30;
+                juego->scene->removeItem(comun);
+                continue;
+            }
+            if (bolax> bloquex+150 && velocidadX < 0 )
+            {
+                playSound();
+                juego->setPuntos();
+                velocidadX = -velocidadX;
+                golpe = false;
+                juego->puntos+=30;
+                juego->scene->removeItem(comun);
+                continue;
+            }
+            if (bloquex > bolax+2 && velocidadX > 0 )
+            {
+                playSound();
+                juego->setPuntos();
+                velocidadX = -velocidadX;
+                golpe = false;
+                juego->puntos+=30;
+                juego->scene->removeItem(comun);
+                continue;
+            }
+
+
+        }
+
+        Dobles* doble = dynamic_cast<Dobles*>(colliding_items[i]);
+        if (doble)
+        {
+            //Posiciones de la bola y de los bloques
+            bolax = pos().x();
+            bolay = pos().y();
+            bloquex = doble->pos().x();
+            bloquey = doble->pos().y();
+
+            if(juego->scene->items().size()==2)
+            {
+                velocidadY = 0;
+                velocidadX = 0;
+
+            }
+            if (bolay> bloquey-10 && velocidadY < 0 )
+             {
+                playSound();
+
+                velocidadY = -velocidadY;
+                golpe = false;
+                juego->puntos+=100;
+                juego->scene->removeItem(doble);
+                continue;
+                bloquesito = new Comun();
+                bloquesito->setPos(pos().x(),pos().y());
+                juego->Cc(bloquesito);
+
+            }
+            if (bloquey > bolay+15 && velocidadY > 0 )
+            {
+                playSound();
+                juego->setPuntos();
+                velocidadY = -velocidadY;
+                golpe = false;
+                juego->puntos+=100;
+                juego->scene->removeItem(doble);
+                continue;
+                bloquesito = new Comun();
+                bloquesito->setPos(pos().x(),pos().y());
+                juego->Cc(bloquesito);
+            }
+            if (bolax> bloquex+150 && velocidadX < 0 )
+            {
+                playSound();
+                juego->setPuntos();
+                velocidadX = -velocidadX;
+                golpe = false;
+                juego->puntos+=100;
+                juego->scene->removeItem(doble);
+                continue;
+                bloquesito = new Comun();
+                bloquesito->setPos(pos().x(),pos().y());
+                juego->Cc(bloquesito);
+            }
+
+            if (bloquex > bolax+2 && velocidadX > 0 )
+            {
+                playSound();
+                juego->setPuntos();
+                velocidadX = -velocidadX;
+                golpe = false;
+                juego->puntos+=100;
+                juego->scene->removeItem(doble);
+                continue;
+                bloquesito = new Comun();
+                bloquesito->setPos(pos().x(),pos().y());
+                juego->Cc(bloquesito);
+            }
+
+
+
+            }
+
+    }
+
+
+    setPos(x()+velocidadX, y()+velocidadY);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
