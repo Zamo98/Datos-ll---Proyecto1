@@ -8,6 +8,14 @@
 #include<iostream>
 #include <stdio.h>
 
+#include "comun.h"
+#include "dobles.h"
+#include "sorpresa.h"
+#include <QGraphicsScene>
+#include "ventana.h"
+#include <QGraphicsItem>
+#include <QList>
+
 using namespace std;
 
 
@@ -29,6 +37,7 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
 
     gameOver = false;
     gameWin = false;
+    CB = true;
 
     //Diseño y posiscion inicial de la raqueta
 
@@ -38,6 +47,7 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
 
     bola = new Bola();
     bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
+    //bola1->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
     connect(bola, SIGNAL(bolaPerdida()), this, SLOT(jugadorPierde()));
     scene->addItem(bola);
 
@@ -77,34 +87,49 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
 void Juego::CrearBloque(double y) //Dibujas los bloques
 {
     QList<QGraphicsItem *> colliding_items;
-    int num;
+
     srand(time(NULL));
+
+    int n1;
+    int n2;
+
 
     for (size_t k = 0, j = 4; k < j; ++k) //Creacion de columnas
     {
         for (size_t i = 0, n = 10; i < n; ++i) //Creacion de filas
         {
-            num =1 + rand() % (3);
+            n1 =1 + rand() % (3);
+            if (n1 ==1){
+                bloquesito = new Comun();
+                bloquesito->setPos(i*103,y);
+                scene->addItem(bloquesito);
+            }
+            if (n1 ==2){
+               bloquesito1 = new Dobles(2);
+               bloquesito1->setPos(i*103,y);
+               scene->addItem(bloquesito1);
 
-            if (num ==1){
-                comun = new Comun();
-                comun->setPos(i*103,y);
-                scene->addItem(comun);
             }
-            if (num ==2){
-                doble = new Dobles(2);
-                doble->setPos(i*103,y);
-                scene->addItem(doble);
+            if (n1 == 3){
+                n2 =1 + rand() % (4);
+                sorpresita = new Sorpresa(n2);
+                sorpresita->setPos(i*103, y);
+                scene->addItem(sorpresita);
             }
-            if (num ==3){
-                triple = new Triples(3);
-                triple->setPos(i*103,y);
-                scene->addItem(triple);
-            }
+
+
         }
         y += 57; //Distancia entre y
     }
+
+    //size_t i = 0, n = colliding_items.size(); i < n; ++i
+
+
+
 }
+
+
+
 
 void Juego::Iniciar() { //Inicializar los bloques
 
@@ -124,6 +149,11 @@ void Juego::Iniciar() { //Inicializar los bloques
                         Triples* triple = dynamic_cast<Triples*>(allItems[i]);
                         if(triple){
                             scene->removeItem(triple);
+
+                        Sorpresa* sorpresita = dynamic_cast<Sorpresa*>(allItems[i]);
+                        if (sorpresita){
+                            scene->removeItem(sorpresita);
+
                         }
                     }
         gameOver = false;
@@ -133,6 +163,14 @@ void Juego::Iniciar() { //Inicializar los bloques
     }
 
     CrearBloque(0);
+    int n =1 + rand() % (2);
+    if (n >= 1){
+        bola = new Bola();
+        bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
+        connect(bola, SIGNAL(bolaPerdida()), this, SLOT(jugadorPierde()));
+        scene->addItem(bola);
+    }
+
 
 
 }
@@ -143,6 +181,10 @@ void Juego::keyPressEvent(QKeyEvent *evento){
 
     /*case Qt::Key_Left:
         if(raqueta){
+            for (size_t i = 0, n = scene->items().size(); i < n; ++i)
+
+            {
+
             raqueta->movIzq();
             if(!bola->lanzada) bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
         }
@@ -166,12 +208,15 @@ void Juego::keyPressEvent(QKeyEvent *evento){
 }
 
 void Juego::mousePressEvent(QMouseEvent *evento){
+
+
     switch(evento->button()){
 
     case Qt::LeftButton:
         if(raqueta){
             raqueta->disparo();
             bola->setLanzamiento(true);
+
         }
         break;
 

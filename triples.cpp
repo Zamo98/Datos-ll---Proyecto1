@@ -1,4 +1,5 @@
 #include "triples.h"
+
 #include <QGraphicsItemGroup>
 #include <QtGui>
 
@@ -24,4 +25,4 @@ bool Triples::Vidas(){
     else{
         return false;
     }
-}
+

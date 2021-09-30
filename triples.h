@@ -2,6 +2,7 @@
 #define TRIPLES_H
 
 
+
 #include <QGraphicsItem>
 #include <QGraphicsItemGroup>
 
@@ -17,4 +18,5 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     QRectF boundingRect ()const;
 };
+
 #endif // TRIPLES_H

@@ -1,7 +1,6 @@
 #ifndef DOBLES_H
 #define DOBLES_H
 
-
 #include <QGraphicsItem>
 #include <QGraphicsItemGroup>
 

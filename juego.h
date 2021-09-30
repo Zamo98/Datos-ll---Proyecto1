@@ -11,10 +11,18 @@
 #include "ventana.h"
 #include "bola.h"
 #include "bloques.h"
+#include "comun.h"
+#include "dobles.h"
 #include <QFont>
+
 #include "comun.h"
 #include "dobles.h"
 #include "triples.h"
+
+#include "sorpresa.h"
+#include <list>
+#include <QGraphicsItem>
+
 
 
 class Juego : public QGraphicsView
@@ -25,11 +33,18 @@ public:
     QGraphicsScene *scene=nullptr;
     bool gameOver;
     bool gameWin;
+    bool CB;
     Raqueta *raqueta=nullptr;
+    Sorpresa *sorpresita;
     Bola *bola;
+
     Comun *comun;
     Dobles *doble;
     Triples *triple;
+
+
+    //void Cc (QGraphicsItem* Bloquesito);
+
     void Iniciar();
     void CrearBloque(double y);
     void juegoTerminado();
