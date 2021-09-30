@@ -9,7 +9,11 @@
 #include <stdio.h>
 #include "comun.h"
 #include "dobles.h"
-
+#include "sorpresa.h"
+#include <QGraphicsScene>
+#include "ventana.h"
+#include <QGraphicsItem>
+#include <QList>
 using namespace std;
 
 
@@ -30,6 +34,7 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
 
     gameOver = false;
     gameWin = false;
+    CB = true;
 
     //Diseño y posiscion inicial de la raqueta
 
@@ -38,7 +43,6 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
     scene->addItem(raqueta);
 
     bola = new Bola();
-    //bola1 = new Bola();
     bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
     //bola1->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
     connect(bola, SIGNAL(bolaPerdida()), this, SLOT(jugadorPierde()));
@@ -82,45 +86,34 @@ void Juego::CrearBloque(double y) //Dibujas los bloques
     QList<QGraphicsItem *> colliding_items;
 
     srand(time(NULL));
-    int num;
-    double bloquex;
-    double bloquey;
-    double bloqueX;
-    double bloqueY;
-
+    int n1;
+    int n2;
 
     for (size_t k = 0, j = 4; k < j; ++k) //Creacion de columnas
     {
         for (size_t i = 0, n = 10; i < n; ++i) //Creacion de filas
         {
 
-            /*
-            qDebug() <<num;
-            Bloques* bloques = new Bloques(num);
-            bloques->setPos(i*103,y); //Posicion en x,y
-            scene->addItem(bloques);
-            bloquex = bloques->pos().x();
-            bloquey = bloques->pos().y();
-            bloqueX = bloques ->scenePos().x();
-            bloqueY = bloques ->scenePos().y();
-            if (num == 1){
 
-            }
-
-            bloques->Clasificacion(num, bloquex, bloquey);
-            */
-            num =1 + rand() % (2);
-            if (num ==1){
+            n1 =1 + rand() % (3);
+            if (n1 ==1){
                 bloquesito = new Comun();
                 bloquesito->setPos(i*103,y);
                 scene->addItem(bloquesito);
             }
-            if (num ==2){
-               bloquesito1 = new Dobles();
+            if (n1 ==2){
+               bloquesito1 = new Dobles(2);
                bloquesito1->setPos(i*103,y);
                scene->addItem(bloquesito1);
 
             }
+            if (n1 == 3){
+                n2 =1 + rand() % (4);
+                sorpresita = new Sorpresa(n2);
+                sorpresita->setPos(i*103, y);
+                scene->addItem(sorpresita);
+            }
+
 
         }
         y += 57; //Distancia entre y
@@ -132,11 +125,7 @@ void Juego::CrearBloque(double y) //Dibujas los bloques
 
 }
 
-void Juego:: Cc (QGraphicsItem* Bloquesito){
-    scene->addItem(bloquesito1);
 
-
-}
 
 void Juego::Iniciar() { //Inicializar los bloques
 
@@ -153,6 +142,10 @@ void Juego::Iniciar() { //Inicializar los bloques
                         if (doble){
                             scene->removeItem(doble);
                         }
+                        Sorpresa* sorpresita = dynamic_cast<Sorpresa*>(allItems[i]);
+                        if (sorpresita){
+                            scene->removeItem(sorpresita);
+                        }
                     }
         gameOver = false;
         gameWin = false;
@@ -161,6 +154,14 @@ void Juego::Iniciar() { //Inicializar los bloques
     }
 
     CrearBloque(0);
+    int n =1 + rand() % (2);
+    if (n >= 1){
+        bola = new Bola();
+        bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
+        connect(bola, SIGNAL(bolaPerdida()), this, SLOT(jugadorPierde()));
+        scene->addItem(bola);
+    }
+
 
 
 }
@@ -171,6 +172,10 @@ void Juego::keyPressEvent(QKeyEvent *evento){
 
     case Qt::Key_Left:
         if(raqueta){
+            for (size_t i = 0, n = scene->items().size(); i < n; ++i)
+
+            {
+
             raqueta->movIzq();
             if(!bola->lanzada) bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
         }
@@ -194,12 +199,15 @@ void Juego::keyPressEvent(QKeyEvent *evento){
 }
 
 void Juego::mousePressEvent(QMouseEvent *evento){
+
+
     switch(evento->button()){
 
     case Qt::LeftButton:
         if(raqueta){
             raqueta->disparo();
             bola->setLanzamiento(true);
+
         }
         break;
 
@@ -224,9 +232,7 @@ void Juego::mouseMoveEvent(QMouseEvent *evento){
 void Juego::jugadorPierde(){
 
 
-    //vidas--;
 
-    //if(vidas == 0) juegoTerminado();
 
     if(bola){
         if(raqueta->nuevoAncho != 50){

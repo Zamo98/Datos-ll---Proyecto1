@@ -16,6 +16,7 @@ SOURCES += \
     juego.cpp \
     main.cpp \
     raqueta.cpp \
+    sorpresa.cpp \
     triples.cpp \
     ventana.cpp
 
@@ -26,6 +27,7 @@ HEADERS += \
     dobles.h \
     juego.h \
     raqueta.h \
+    sorpresa.h \
     triples.h \
     ventana.h
 

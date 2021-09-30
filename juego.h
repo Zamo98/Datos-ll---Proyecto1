@@ -14,6 +14,9 @@
 #include "comun.h"
 #include "dobles.h"
 #include <QFont>
+#include "sorpresa.h"
+#include <list>
+#include <QGraphicsItem>
 
 
 class Juego : public QGraphicsView
@@ -24,11 +27,14 @@ public:
     QGraphicsScene *scene=nullptr;
     bool gameOver;
     bool gameWin;
+    bool CB;
     Raqueta *raqueta=nullptr;
     Comun *bloquesito;
     Dobles *bloquesito1;
+    Sorpresa *sorpresita;
     Bola *bola;
-    void Cc (QGraphicsItem* Bloquesito);
+
+    //void Cc (QGraphicsItem* Bloquesito);
     void Iniciar();
     void CrearBloque(double y);
     void juegoTerminado();

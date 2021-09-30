@@ -6,7 +6,9 @@
 class Dobles : public QGraphicsItemGroup
 {
 public:
-    Dobles(QGraphicsItem* parent = nullptr);
+    Dobles(int _Vida, QGraphicsItem* parent = nullptr);
+    int Vida;
+    bool Vidas();
 
 protected:
     void paint (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

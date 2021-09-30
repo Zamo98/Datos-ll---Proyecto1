@@ -1,9 +1,11 @@
 #include "dobles.h"
-
+#include <iostream>
 #include <QGraphicsItemGroup>
 #include<QtGui>
-Dobles::Dobles(QGraphicsItem* parent): QGraphicsItemGroup(parent)
+using namespace std ;
+Dobles::Dobles(int _Vida, QGraphicsItem* parent): QGraphicsItemGroup(parent)
 {
+    Vida = _Vida;
 
 }
 
@@ -19,3 +21,16 @@ void Dobles:: paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 
 
 }
+
+bool Dobles::Vidas(){
+
+    Vida = (Vida - 1);
+    cout << "<La vida es" << " " <<Vida<< " " << ":D";
+    if (Vida <= 0){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
