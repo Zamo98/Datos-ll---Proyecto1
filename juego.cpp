@@ -100,14 +100,14 @@ void Juego::CrearBloque(double y) //Dibujas los bloques
         {
             n1 =1 + rand() % (3);
             if (n1 ==1){
-                bloquesito = new Comun();
-                bloquesito->setPos(i*103,y);
-                scene->addItem(bloquesito);
+                comun = new Comun();
+                comun->setPos(i*103,y);
+                scene->addItem(comun);
             }
             if (n1 ==2){
-               bloquesito1 = new Dobles(2);
-               bloquesito1->setPos(i*103,y);
-               scene->addItem(bloquesito1);
+               doble = new Dobles(2);
+               doble->setPos(i*103,y);
+               scene->addItem(doble);
 
             }
             if (n1 == 3){
@@ -121,11 +121,7 @@ void Juego::CrearBloque(double y) //Dibujas los bloques
         }
         y += 57; //Distancia entre y
     }
-
     //size_t i = 0, n = colliding_items.size(); i < n; ++i
-
-
-
 }
 
 
@@ -138,9 +134,9 @@ void Juego::Iniciar() { //Inicializar los bloques
         if (gameWin == true){
             QList<QGraphicsItem*> allItems = scene->items();
                     for (size_t i = 0,q = scene->items().size() ; i < q ; ++i){
-                        Comun* bloquesito = dynamic_cast<Comun*>(allItems[i]);
-                        if (bloquesito){
-                            scene->removeItem(bloquesito);
+                        Comun* comun = dynamic_cast<Comun*>(allItems[i]);
+                        if (comun){
+                            scene->removeItem(comun);
                         }
                         Dobles* doble = dynamic_cast<Dobles*>(allItems[i]);
                         if(doble){
@@ -170,9 +166,7 @@ void Juego::Iniciar() { //Inicializar los bloques
         connect(bola, SIGNAL(bolaPerdida()), this, SLOT(jugadorPierde()));
         scene->addItem(bola);
     }
-
-
-
+}
 }
 
 //Mover la raqueta con las teclas
@@ -282,6 +276,5 @@ void Juego::juegoTerminado(){
     gameOver = true;
     if(scene->items().size()==2){
         gameWin = true;
-
     }
 }
