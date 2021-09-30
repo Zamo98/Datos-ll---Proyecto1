@@ -10,7 +10,7 @@
 #include <QMediaPlaylist>
 #include "raqueta.h"
 #include <list>
-
+#include "comun.h"
 class Bola : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -26,7 +26,6 @@ public:
     bool lanzada = false;
     void setLanzamiento(bool value);
     void seguirRaqueta();
-
 
 private slots:
     void movimiento();

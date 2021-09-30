@@ -12,6 +12,9 @@
 #include "bola.h"
 #include "bloques.h"
 #include <QFont>
+#include "comun.h"
+#include "dobles.h"
+#include "triples.h"
 
 
 class Juego : public QGraphicsView
@@ -24,6 +27,9 @@ public:
     bool gameWin;
     Raqueta *raqueta=nullptr;
     Bola *bola;
+    Comun *comun;
+    Dobles *doble;
+    Triples *triple;
     void Iniciar();
     void CrearBloque(double y);
     void juegoTerminado();

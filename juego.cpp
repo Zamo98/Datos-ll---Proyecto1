@@ -7,7 +7,9 @@
 #include <time.h>
 #include<iostream>
 #include <stdio.h>
+
 using namespace std;
+
 
 
 Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
@@ -77,45 +79,31 @@ void Juego::CrearBloque(double y) //Dibujas los bloques
     QList<QGraphicsItem *> colliding_items;
     int num;
     srand(time(NULL));
-    double bloquex;
-    double bloquey;
-    double bloqueX;
-    double bloqueY;
 
     for (size_t k = 0, j = 4; k < j; ++k) //Creacion de columnas
     {
         for (size_t i = 0, n = 10; i < n; ++i) //Creacion de filas
         {
-            num =1 + rand() % (5);
+            num =1 + rand() % (3);
 
-            qDebug() <<num;
-            Bloques* bloques = new Bloques(num);
-            bloques->setPos(i*103,y); //Posicion en x,y
-            scene->addItem(bloques);
-            bloquex = bloques->pos().x();
-            bloquey = bloques->pos().y();
-            bloqueX = bloques ->scenePos().x();
-            bloqueY = bloques ->scenePos().y();
-
-
-            bloques->Clasificacion(num, bloqueX, bloqueY);
-
-
-
+            if (num ==1){
+                comun = new Comun();
+                comun->setPos(i*103,y);
+                scene->addItem(comun);
+            }
+            if (num ==2){
+                doble = new Dobles(2);
+                doble->setPos(i*103,y);
+                scene->addItem(doble);
+            }
+            if (num ==3){
+                triple = new Triples(3);
+                triple->setPos(i*103,y);
+                scene->addItem(triple);
+            }
         }
         y += 57; //Distancia entre y
     }
-
-    //size_t i = 0, n = colliding_items.size(); i < n; ++i
-
-
-
-
-
-
-
-
-
 }
 
 void Juego::Iniciar() { //Inicializar los bloques
@@ -125,9 +113,17 @@ void Juego::Iniciar() { //Inicializar los bloques
         if (gameWin == true){
             QList<QGraphicsItem*> allItems = scene->items();
                     for (size_t i = 0,q = scene->items().size() ; i < q ; ++i){
-                        Bloques* bloques = dynamic_cast<Bloques*>(allItems[i]);
-                        if (bloques){
-                            scene->removeItem(bloques);
+                        Comun* bloquesito = dynamic_cast<Comun*>(allItems[i]);
+                        if (bloquesito){
+                            scene->removeItem(bloquesito);
+                        }
+                        Dobles* doble = dynamic_cast<Dobles*>(allItems[i]);
+                        if(doble){
+                            scene->removeItem(doble);
+                        }
+                        Triples* triple = dynamic_cast<Triples*>(allItems[i]);
+                        if(triple){
+                            scene->removeItem(triple);
                         }
                     }
         gameOver = false;
@@ -145,7 +141,7 @@ void Juego::Iniciar() { //Inicializar los bloques
 void Juego::keyPressEvent(QKeyEvent *evento){
     switch (evento->key()) {
 
-    case Qt::Key_Left:
+    /*case Qt::Key_Left:
         if(raqueta){
             raqueta->movIzq();
             if(!bola->lanzada) bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
@@ -158,7 +154,7 @@ void Juego::keyPressEvent(QKeyEvent *evento){
             if(!bola->lanzada) bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
 
         }
-        break;
+        break;*/
 
     case Qt::Key_Space:
         if(raqueta){
@@ -198,12 +194,6 @@ void Juego::mouseMoveEvent(QMouseEvent *evento){
 }
 
 void Juego::jugadorPierde(){
-
-
-    //vidas--;
-
-    //if(vidas == 0) juegoTerminado();
-
     if(bola){
         if(raqueta->nuevoAncho != 50){
         raqueta->reducirRaqueta();
@@ -226,7 +216,6 @@ void Juego::mostrarPuntaje(){
 }
 
 void Juego::setPuntos(){
-    puntos+=1;
     mostrarPuntaje();
 }
 
