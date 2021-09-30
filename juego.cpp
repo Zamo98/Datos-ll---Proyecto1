@@ -176,6 +176,8 @@ void Juego::keyPressEvent(QKeyEvent *evento){
 
             {
 
+            }
+
             raqueta->movIzq();
             if(!bola->lanzada) bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
         }
