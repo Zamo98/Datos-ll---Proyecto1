@@ -11,6 +11,7 @@
 #include "raqueta.h"
 #include <list>
 #include "comun.h"
+#include "profundos.h"
 
 class Bola : public QObject, public QGraphicsPixmapItem
 {
@@ -20,11 +21,13 @@ public:
     int anchoBola = 0;
     int largoBola = 0;
     bool golpe = false;
+    bool Eprofundo = false;
     int vX;
     int vY;
     int velocidadX = 3;
     int velocidadY = 3;
-    //Comun *bloquesito;
+    int profundidad = 0;
+
     bool lanzada = false;
     void setLanzamiento(bool value);
     void seguirRaqueta();

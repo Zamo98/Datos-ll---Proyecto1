@@ -2,7 +2,6 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QIcon>
-#include "bloques.h"
 #include <stdlib.h>
 #include <time.h>
 #include<iostream>
@@ -14,6 +13,7 @@
 #include "ventana.h"
 #include <QGraphicsItem>
 #include <QList>
+#include "profundos.h"
 using namespace std;
 
 
@@ -88,31 +88,79 @@ void Juego::CrearBloque(double y) //Dibujas los bloques
     srand(time(NULL));
     int n1;
     int n2;
+    int n3;
+    int n5;
 
     for (size_t k = 0, j = 4; k < j; ++k) //Creacion de columnas
     {
         for (size_t i = 0, n = 10; i < n; ++i) //Creacion de filas
         {
+            if (k == 0){
+                n1 =1 + rand() % (8);
+                if (n1 >=7){
+                    n2 =1 + rand() % (4);
+                    sorpresita = new Sorpresa(n2);
+                    sorpresita->setPos(i*103, y);
+                    scene->addItem(sorpresita);
+
+                }
+                else {
+                    bloquesito1 = new Dobles(2);
+                    bloquesito1->setPos(i*103,y);
+                    scene->addItem(bloquesito1);
 
 
-            n1 =1 + rand() % (3);
-            if (n1 ==1){
-                bloquesito = new Comun();
-                bloquesito->setPos(i*103,y);
-                scene->addItem(bloquesito);
+                }
             }
-            if (n1 ==2){
-               bloquesito1 = new Dobles(2);
-               bloquesito1->setPos(i*103,y);
-               scene->addItem(bloquesito1);
 
+            if (k == 1){
+                n3 =1 + rand() % (5);
+                if (n3 == 2){
+                    profundo = new Profundos();
+                    profundo->setPos(i*103, y);
+                    scene->addItem(profundo);
+                }
+                else {
+                    bloquesito = new Comun();
+                    bloquesito->setPos(i*103,y);
+                    scene->addItem(bloquesito);
+
+                }
             }
-            if (n1 == 3){
-                n2 =1 + rand() % (4);
-                sorpresita = new Sorpresa(n2);
-                sorpresita->setPos(i*103, y);
-                scene->addItem(sorpresita);
+
+            if (k ==2){
+                int n4 = 1 + rand()%(7);
+                if (n4 >= 5){
+                    sorpresita = new Sorpresa(n2);
+                    sorpresita->setPos(i*103, y);
+                    scene->addItem(sorpresita);
+                }
+                else {
+                    bloquesito1 = new Dobles(2);
+                    bloquesito1->setPos(i*103,y);
+                    scene->addItem(bloquesito1);
+
+                }
             }
+            if (k == 3){
+                n5 =1 + rand() % (8);
+                if (n5 >= 7){
+                    profundo = new Profundos();
+                    profundo->setPos(i*103, y);
+                    scene->addItem(profundo);
+                }
+                else {
+
+                    bloquesito = new Comun();
+                    bloquesito->setPos(i*103,y);
+                    scene->addItem(bloquesito);
+
+                }
+            }
+
+
+
+
 
 
         }
@@ -145,6 +193,10 @@ void Juego::Iniciar() { //Inicializar los bloques
                         Sorpresa* sorpresita = dynamic_cast<Sorpresa*>(allItems[i]);
                         if (sorpresita){
                             scene->removeItem(sorpresita);
+                        }
+                        Profundos* profundo = dynamic_cast<Profundos*>(allItems[i]);
+                        if (sorpresita){
+                            scene->removeItem(profundo);
                         }
                     }
         gameOver = false;

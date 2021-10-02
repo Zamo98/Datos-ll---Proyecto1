@@ -1,7 +1,6 @@
 #include "bola.h"
 #include "ventana.h"
 #include "raqueta.h"
-#include "bloques.h"
 #include "juego.h"
 #include "comun.h"
 #include "sorpresa.h"
@@ -9,9 +8,11 @@
 #include "iostream"
 extern Juego* juego;
 extern Sorpresa* sorpresa;
+extern Profundos* profundos;
 #include "comun.h"
 using namespace std;
 #include <QGraphicsScene>
+#include "profundos.h"
 
 
 
@@ -102,8 +103,11 @@ void Bola::movimiento(){
 
     for (size_t i = 0, n = colliding_items.size(); i < n; ++i)
     {
-        //qDebug() <<"Aqui1";
+        Profundos* profundo = dynamic_cast<Profundos*>(colliding_items[i]);
         Sorpresa* sorpresita = dynamic_cast<Sorpresa*>(colliding_items[i]);
+        Comun* comun = dynamic_cast<Comun*>(colliding_items[i]);
+
+
         if (sorpresita)
         {
             //Posiciones de la bola y de los bloques
@@ -120,60 +124,83 @@ void Bola::movimiento(){
                 velocidadX = 0;
 
             }
-            if (bolay> bloquey-10 && velocidadY < 0 )
-             {
-                playSound();
-                juego->setPuntos();
-                sorpresita->KSorpresa();
-                velocidadY = -velocidadY;
-                golpe = false;
-                juego->puntos+=30;
-                juego->scene->removeItem(sorpresita);
+            if (profundidad >= 1){
+                if ((bolay> bloquey-10 && velocidadY < 0 ) || (bloquey > bolay+15 && velocidadY > 0 ))
+                 {
+                    playSound();
+                    sorpresita->KSorpresa();
+                    velocidadY = -velocidadY;
+                    golpe = false;
+                    profundidad -= 1;
+                    continue;
 
-                continue;
+                }
+
+                if ((bolax> bloquex+150 && velocidadX < 0 ) || (bloquex > bolax+2 && velocidadX > 0 ))
+                {
+                    playSound();
+                    sorpresita->KSorpresa();
+                    velocidadX = -velocidadX;
+                    golpe = false;
+                    profundidad -=1;
+                    continue;
+                }
+            }
+            if (profundidad <= 0 && Eprofundo == true){
+
+                if ((bolay> bloquey-10 && velocidadY < 0 ) || (bloquey > bolay+15 && velocidadY > 0 ))
+                 {
+                    playSound();
+                    sorpresita->KSorpresa();
+                    velocidadY = -velocidadY;
+                    golpe = false;
+                    juego->scene->removeItem(sorpresita);
+                    profundidad = 0;
+                    Eprofundo = false;
+                    continue;
+
+                }
+
+                if ((bolax> bloquex+150 && velocidadX < 0 ) || (bloquex > bolax+2 && velocidadX > 0 ))
+                {
+                    playSound();
+                    sorpresita->KSorpresa();
+                    velocidadX = -velocidadX;
+                    golpe = false;
+                    juego->scene->removeItem(sorpresita);
+                    profundidad = 0;
+                    Eprofundo = false;
+                    continue;
+                }
 
             }
-            if (bloquey > bolay+15 && velocidadY > 0 )
-            {
-                playSound();
-                juego->setPuntos();
-                sorpresita->KSorpresa();
-                velocidadY = -velocidadY;
-                golpe = false;
-                juego->puntos+=30;
-                juego->scene->removeItem(sorpresita);
+            if (profundidad <= 0 && Eprofundo == false){
 
-                continue;
+                if ((bolay> bloquey-10 && velocidadY < 0 ) || (bloquey > bolay+15 && velocidadY > 0 ))
+                 {
+                    playSound();
+                    sorpresita->KSorpresa();
+                    velocidadY = -velocidadY;
+                    golpe = false;
+                    juego->scene->removeItem(sorpresita);
+                    continue;
+
+                }
+
+                if ((bolax> bloquex+150 && velocidadX < 0 ) || (bloquex > bolax+2 && velocidadX > 0 ))
+                {
+                    playSound();
+                    sorpresita->KSorpresa();
+                    velocidadX = -velocidadX;
+                    golpe = false;
+                    juego->scene->removeItem(sorpresita);
+                    continue;
+                }
             }
-            if (bolax> bloquex+150 && velocidadX < 0 )
-            {
-                playSound();
-                juego->setPuntos();
-                sorpresita->KSorpresa();
-                velocidadX = -velocidadX;
-                golpe = false;
-                juego->puntos+=30;
-                juego->scene->removeItem(sorpresita);
-
-                continue;
-            }
-            if (bloquex > bolax+2 && velocidadX > 0 )
-            {
-                playSound();
-                juego->setPuntos();
-                sorpresita->KSorpresa();
-                velocidadX = -velocidadX;
-                golpe = false;
-                juego->puntos+=30;
-                juego->scene->removeItem(sorpresita);
-
-                continue;
-            }
-
-
         }
 
-        Comun* comun = dynamic_cast<Comun*>(colliding_items[i]);
+        //-----------------------------------------------------------------------------------------------------------------------------------------------//
+        //----------------------------------------------------------------------------------------------------------------------------------------------//
 
         if (comun)
         {
@@ -191,51 +218,132 @@ void Bola::movimiento(){
                 velocidadX = 0;
 
             }
-            if (bolay> bloquey-10 && velocidadY < 0 )
-             {
-                playSound();
-                juego->setPuntos();
-                velocidadY = -velocidadY;
-                golpe = false;
-                juego->puntos+=30;
-                juego->scene->removeItem(comun);
-                continue;
 
-            }
-            if (bloquey > bolay+15 && velocidadY > 0 )
-            {
-                playSound();
-                juego->setPuntos();
-                velocidadY = -velocidadY;
-                golpe = false;
-                juego->puntos+=30;
-                juego->scene->removeItem(comun);
-                continue;
-            }
-            if (bolax> bloquex+150 && velocidadX < 0 )
-            {
-                playSound();
-                juego->setPuntos();
-                velocidadX = -velocidadX;
-                golpe = false;
-                juego->puntos+=30;
-                juego->scene->removeItem(comun);
-                continue;
-            }
-            if (bloquex > bolax+2 && velocidadX > 0 )
-            {
-                playSound();
-                juego->setPuntos();
-                velocidadX = -velocidadX;
-                golpe = false;
-                juego->puntos+=30;
-                juego->scene->removeItem(comun);
-                continue;
-            }
+           if (profundidad >= 1){
+               if ((bolay> bloquey-10 && velocidadY < 0 ) || (bloquey > bolay+15 && velocidadY > 0 ))
+                 {
+                    playSound();
+                    velocidadY = -velocidadY;
+                    golpe = false;
+                    profundidad -=1;
+                    continue;
+
+                }
+
+               if ((bolax> bloquex+150 && velocidadX < 0 ) || (bloquex > bolax+2 && velocidadX > 0 ))
+                {
+                    playSound();
+                    velocidadX = -velocidadX;
+                    golpe = false;
+                    profundidad -=1;
+                    continue;
+                }
+           }
 
 
+           if (profundidad <= 0 && Eprofundo == true){
+               if ((bolay> bloquey-10 && velocidadY < 0 ) || (bloquey > bolay+15 && velocidadY > 0 ))
+                 {
+                    playSound();
+                    juego->setPuntos();
+                    velocidadY = -velocidadY;
+                    golpe = false;
+                    juego->puntos+=10;
+                    juego->scene->removeItem(comun);
+                    profundidad = 0;
+                    Eprofundo = false;
+                    continue;
+
+                }
+
+               if ((bolax> bloquex+150 && velocidadX < 0 ) || (bloquex > bolax+2 && velocidadX > 0 ))
+                {
+                    playSound();
+                    juego->setPuntos();
+                    velocidadX = -velocidadX;
+                    golpe = false;
+                    juego->puntos+=10;
+                    juego->scene->removeItem(comun);
+                    Eprofundo = false;
+                    profundidad =0;
+                    continue;
+                }
+           }
+
+           if (profundidad <= 0 && Eprofundo == false){
+               if ((bolay> bloquey-10 && velocidadY < 0 ) || (bloquey > bolay+15 && velocidadY > 0 ))
+                 {
+                    playSound();
+                    juego->setPuntos();
+                    velocidadY = -velocidadY;
+                    golpe = false;
+                    juego->puntos+=10;
+                    juego->scene->removeItem(comun);
+                    continue;
+
+                }
+
+               if ((bolax> bloquex+150 && velocidadX < 0 ) || (bloquex > bolax+2 && velocidadX > 0 ))
+                {
+                    playSound();
+                    juego->setPuntos();
+                    velocidadX = -velocidadX;
+                    golpe = false;
+                    juego->puntos+=10;
+                    juego->scene->removeItem(comun);
+                    continue;
+                }
+           }
         }
 
+        //-------------------------------------------------------------------------------------------------------------------------------------//
+        //-------------------------------------------------------------------------------------------------------------------------------------//
+
+        if (profundo)
+        {
+            //Posiciones de la bola y de los bloques
+            bolax = pos().x();
+            bolay = pos().y();
+            bloquex = profundo->pos().x();
+            bloquey = profundo->pos().y();
+
+
+
+            if(juego->scene->items().size()==2)
+            {
+                velocidadY = 0;
+                velocidadX = 0;
+
+            }
+            if ((bolay> bloquey-10 && velocidadY < 0 ) || (bloquey > bolay+15 && velocidadY > 0 ))
+             {
+
+                playSound();
+
+                velocidadY = -velocidadY;
+                golpe = false;
+                (profundidad)+=1;
+                Eprofundo = true;
+                continue;
+
+            }
+
+
+            if ((bolax> bloquex+150 && velocidadX < 0 ) || (bloquex > bolax+2 && velocidadX > 0 ))
+            {
+                playSound();
+
+                velocidadX = -velocidadX;
+                golpe = false;
+                (profundidad)+=1;
+                Eprofundo = true;
+
+                continue;
+            }
+        }
+
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------//
+        //-----------------------------------------------------------------------------------------------------------------------------------------------------//
 
 
         Dobles* doble = dynamic_cast<Dobles*>(colliding_items[i]);
@@ -253,107 +361,122 @@ void Bola::movimiento(){
                 velocidadX = 0;
 
             }
-            if ((doble->Vidas()) == true){
 
-                if (bolay> bloquey-10 && velocidadY < 0 )
+
+
+
+            if (profundidad >= 1){ //SI existe profundidad pero no le toca
+                if ((bolay> bloquey-10 && velocidadY < 0 ) || (bloquey > bolay+15 && velocidadY > 0 ))
                  {
-                    playSound();
 
+
+                    playSound();
                     velocidadY = -velocidadY;
                     golpe = false;
-                    juego->puntos+=100;
-                    juego->scene->removeItem(doble);
+                    (profundidad)-= 1;
                     continue;
 
 
                 }
-                if (bloquey > bolay+15 && velocidadY > 0 )
-                {
-                    playSound();
-                    juego->setPuntos();
-                    velocidadY = -velocidadY;
-                    golpe = false;
-                    juego->puntos+=100;
-                    juego->scene->removeItem(doble);
-                    continue;
 
-                }
-                if (bolax> bloquex+150 && velocidadX < 0 )
+                if ((bolax> bloquex+150 && velocidadX < 0 ) || (bloquex > bolax+2 && velocidadX > 0 ))
                 {
                     playSound();
-                    juego->setPuntos();
                     velocidadX = -velocidadX;
                     golpe = false;
-                    juego->puntos+=100;
-                    juego->scene->removeItem(doble);
-                    continue;
-
-                }
-
-                if (bloquex > bolax+2 && velocidadX > 0 )
-                {
-                    playSound();
-                    juego->setPuntos();
-                    velocidadX = -velocidadX;
-                    golpe = false;
-                    juego->puntos+=100;
-                    juego->scene->removeItem(doble);
-                    continue;
-
-                }
-
-            }
-
-            else {
-                if (bolay> bloquey-10 && velocidadY < 0 )
-                 {
-                    playSound();
-
-                    velocidadY = -velocidadY;
-                    golpe = false;
-
-                    continue;
-
-
-                }
-                if (bloquey > bolay+15 && velocidadY > 0 )
-                {
-                    playSound();
-                    juego->setPuntos();
-                    velocidadY = -velocidadY;
-                    golpe = false;
-
-                    continue;
-
-                }
-                if (bolax> bloquex+150 && velocidadX < 0 )
-                {
-                    playSound();
-                    juego->setPuntos();
-                    velocidadX = -velocidadX;
-                    golpe = false;
-
-                    continue;
-
-                }
-
-                if (bloquex > bolax+2 && velocidadX > 0 )
-                {
-                    playSound();
-                    juego->setPuntos();
-                    velocidadX = -velocidadX;
-                    golpe = false;
-
+                    (profundidad)-= 1;
                     continue;
 
                 }
             }
 
+            if (profundidad <= 0 && Eprofundo == true){ //Existe profundidad y le toca destruirse
+                cout<< "Me toca " << " " << profundidad << " " << Eprofundo;
+                if ((bolay> bloquey-10 && velocidadY < 0 ) || (bloquey > bolay+15 && velocidadY > 0 ))
+                 {
 
 
+                    playSound();
+                    velocidadY = -velocidadY;
+                    golpe = false;
+                    juego->setPuntos();
+                    juego->puntos+=15;
+                    juego->scene->removeItem(doble);
+                    (profundidad) = 0;
+                    Eprofundo = false;
+                    continue;
 
+
+                }
+
+                if ((bolax> bloquex+150 && velocidadX < 0 ) || (bloquex > bolax+2 && velocidadX > 0 ))
+                {
+                    playSound();
+                    velocidadX = -velocidadX;
+                    golpe = false;
+                    juego->setPuntos();
+                    juego->puntos+=15;
+                    juego->scene->removeItem(doble);
+                    Eprofundo = false;
+                    (profundidad) = 0;
+                    continue;
+
+                }
+            }
+
+            if (profundidad <= 0 && Eprofundo == false){ // No hay profundidad, actua normal
+                cout<< "NO hay profundidad " << " " << profundidad << " " << Eprofundo;
+
+                if ((doble->Vidas()) == true){
+
+
+                    if ((bolay> bloquey-10 && velocidadY < 0 ) || (bloquey > bolay+15 && velocidadY > 0 ))
+                    {
+                        playSound();
+                        velocidadY = -velocidadY;
+                        golpe = false;
+                        juego->setPuntos();
+                        juego->puntos+=15;
+                        juego->scene->removeItem(doble);
+                        continue;
+
+
+                    }
+
+                    if ((bolax> bloquex+150 && velocidadX < 0 ) || (bloquex > bolax+2 && velocidadX > 0 ))
+                    {
+                        playSound();
+                        juego->setPuntos();
+                        velocidadX = -velocidadX;
+                        golpe = false;
+                        juego->puntos+=15;
+                        juego->scene->removeItem(doble);
+                        continue;
+
+                    }
+                }
+                else {
+                    if ((bolay> bloquey-10 && velocidadY < 0 ) || (bloquey > bolay+15 && velocidadY > 0 ))
+                    {
+                        playSound();
+                        velocidadY = -velocidadY;
+                        golpe = false;
+                        continue;
+
+
+                    }
+
+                    if ((bolax> bloquex+150 && velocidadX < 0 ) || (bloquex > bolax+2 && velocidadX > 0 ))
+                    {
+                        playSound();
+                        velocidadX = -velocidadX;
+                        golpe = false;
+                        continue;
+
+                    }
+                }
+            }
         }
-
     }
 
 
@@ -361,12 +484,12 @@ void Bola::movimiento(){
 }
 
 void Bola::reducirBola(){
-    velocidadX -= 1;
-    velocidadY -= 1;
+    velocidadX -= 0.5;
+    velocidadY -= 0.5;
 }
 void Bola:: aumentarBola(){
-    velocidadX += 1;
-    velocidadY += 1;
+    velocidadX += 0.5;
+    velocidadY += 0.5;
 
 }
 
