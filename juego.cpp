@@ -2,7 +2,6 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QIcon>
-#include "bloques.h"
 #include <stdlib.h>
 #include <time.h>
 #include<iostream>
@@ -15,7 +14,7 @@
 #include "ventana.h"
 #include <QGraphicsItem>
 #include <QList>
-
+#include "profundos.h"
 using namespace std;
 
 
@@ -113,37 +112,75 @@ void Juego::CrearBloque(double y) //Dibujas los bloques
 
     int n1;
     int n2;
+    int n3;
+    int n5;
 
 
     for (size_t k = 0, j = 4; k < j; ++k) //Creacion de columnas
     {
         for (size_t i = 0, n = 10; i < n; ++i) //Creacion de filas
         {
-            n1 =1 + rand() % (4);
-            if (n1 ==1){
-                comun = new Comun();
-                comun->setPos(i*103,y);
-                scene->addItem(comun);
-            }
-            if (n1 ==2){
-               doble = new Dobles(2);
-               doble->setPos(i*103,y);
-               scene->addItem(doble);
+            if (k == 0){
+                n1 =1 + rand() % (8);
+                if (n1 >=7){
+                    n2 =1 + rand() % (4);
+                    sorpresita = new Sorpresa(n2);
+                    sorpresita->setPos(i*103, y);
+                    scene->addItem(sorpresita);
 
-            }
-            if (n1 == 3){
-                n2 =1 + rand() % (4);
-                sorpresita = new Sorpresa(n2);
-                sorpresita->setPos(i*103, y);
-                scene->addItem(sorpresita);
-            }
-            if (n1 == 4){
-                triple = new Triples(3);
-                triple->setPos(i*103, y);
-                scene->addItem(triple);
-            }
+                }
+                else {
+                    bloquesito1 = new Dobles(2);
+                    bloquesito1->setPos(i*103,y);
+                    scene->addItem(bloquesito1);
 
 
+                }
+            }
+
+            if (k == 1){
+                n3 =1 + rand() % (5);
+                if (n3 == 2){
+                    profundo = new Profundos();
+                    profundo->setPos(i*103, y);
+                    scene->addItem(profundo);
+                }
+                else {
+                    bloquesito = new Comun();
+                    bloquesito->setPos(i*103,y);
+                    scene->addItem(bloquesito);
+
+                }
+            }
+            if (k ==2){
+                int n4 = 1 + rand()%(7);
+                if (n4 >= 5){
+                    sorpresita = new Sorpresa(n2);
+                    sorpresita->setPos(i*103, y);
+                    scene->addItem(sorpresita);
+                }
+                else {
+                    bloquesito1 = new Dobles(2);
+                    bloquesito1->setPos(i*103,y);
+                    scene->addItem(bloquesito1);
+
+                }
+            }
+            if (k == 3){
+                n5 =1 + rand() % (8);
+                if (n5 >= 7){
+                    profundo = new Profundos();
+                    profundo->setPos(i*103, y);
+                    scene->addItem(profundo);
+                }
+                else {
+
+                    bloquesito = new Comun();
+                    bloquesito->setPos(i*103,y);
+                    scene->addItem(bloquesito);
+
+                }
+            }
         }
         y += 57; //Distancia entre y
     }
@@ -177,6 +214,10 @@ void Juego::Iniciar() { //Inicializar los bloques
                         if (sorpresita){
                             scene->removeItem(sorpresita);
                         }
+                        Profundos* profundo = dynamic_cast<Profundos*>(allItems[i]);
+                        if (sorpresita){
+                            scene->removeItem(profundo);
+                        }
                     }
         gameOver = false;
         gameWin = false;
@@ -191,6 +232,26 @@ void Juego::Iniciar() { //Inicializar los bloques
 //Mover la raqueta con las teclas
 void Juego::keyPressEvent(QKeyEvent *evento){
     switch (evento->key()) {
+    case Qt::Key_Left:
+        if(raqueta){
+            for (size_t i = 0, n = scene->items().size(); i < n; ++i)
+
+            {
+
+            }
+
+            raqueta->movIzq();
+            if(!bola->lanzada) bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
+        }
+        break;
+
+    case Qt::Key_Right:
+        if(raqueta){
+            raqueta->movDer();
+            if(!bola->lanzada) bola->setPos(raqueta->x() + (raqueta->ancho - bola->anchoBola)/2, raqueta->y() - bola->largoBola);
+
+        }
+        break;
     case Qt::Key_Space:
         if(raqueta){
             raqueta->disparo();

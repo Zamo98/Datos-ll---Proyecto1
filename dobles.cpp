@@ -20,9 +20,9 @@ void Dobles:: paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 }
 
 bool Dobles::Vidas(){
-    Vida = (Vida - 1);
-    //cout<<"La vida es"<<" "<<Vida<<" "<<":D";
-    if(Vida <= 0){
+    Vida -= 1;
+    cout << "<La vida es" << " " <<Vida<< " " << ":D";
+    if (Vida <= 0){
         return true;
     }
     else{

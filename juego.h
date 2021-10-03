@@ -1,3 +1,4 @@
+
 #ifndef JUEGO_H
 #define JUEGO_H
 
@@ -10,18 +11,16 @@
 #include "raqueta.h"
 #include "ventana.h"
 #include "bola.h"
-#include "bloques.h"
 #include "comun.h"
 #include "dobles.h"
 #include <QFont>
 
-#include "comun.h"
-#include "dobles.h"
 #include "triples.h"
 
 #include "sorpresa.h"
 #include <list>
 #include <QGraphicsItem>
+#include "profundos.h"
 
 
 
@@ -40,6 +39,12 @@ public:
     Comun *comun;
     Dobles *doble;
     Triples *triple;
+    Profundos *profundo;
+    Bola *bola;
+
+
+
+    //void Cc (QGraphicsItem* Bloquesito);
     void Iniciar();
     void CrearBloque(double y);
     void juegoTerminado();
