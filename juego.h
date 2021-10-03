@@ -36,20 +36,20 @@ public:
     bool CB;
     Raqueta *raqueta=nullptr;
     Sorpresa *sorpresita;
-    Bola *bola;
-
+    Bola *bola, *bola2, *bola3, *bola4;
     Comun *comun;
     Dobles *doble;
     Triples *triple;
-
-
-    //void Cc (QGraphicsItem* Bloquesito);
-
     void Iniciar();
     void CrearBloque(double y);
     void juegoTerminado();
     int puntos = 0;
+    int contador = 0;
+
     void setPuntos();
+
+public slots:
+    void jugadorGana();
 
 
 protected:
@@ -59,7 +59,6 @@ protected:
 
 private:
     void mostrarPuntaje();
-    int vidas = 5;
     QFont fuente;
     QGraphicsTextItem *texto=nullptr;
     QMediaPlayer *pierdes=nullptr;
@@ -67,6 +66,7 @@ private:
 
 private slots:
     void jugadorPierde();
+    void activarCronometro();
 };
 
 #endif // JUEGO_H

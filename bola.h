@@ -31,20 +31,17 @@ public:
     void reducirBola();
     void aumentarBola();
     void playSound();
+    void bolaNueva();
 
 private slots:
     void movimiento();
 
 private:
     //modi
-
-
     QMediaPlayer *golpeBloques = nullptr;
-
 
 signals:
     void bolaPerdida();
-
 };
 
 #endif // BOLA_H

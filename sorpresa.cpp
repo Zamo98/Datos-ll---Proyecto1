@@ -17,12 +17,12 @@ Sorpresa::Sorpresa(int Ksorpresa, QGraphicsItem* parent): QGraphicsItemGroup(par
 }
 
 QRectF Sorpresa:: boundingRect() const{
-    return QRectF (0,0,95,55);
+    return QRectF (0,0,95,40);
 }
 
 void Sorpresa:: paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-    painter->setBrush (Qt:: green);
-    painter -> drawRoundedRect(0,0, 95, 55, 10, 10);
+    painter->setBrush (Qt:: gray);
+    painter -> drawRoundedRect(0,0, 95, 40, 10, 10);
 
 
 }
@@ -35,7 +35,12 @@ void Sorpresa::KSorpresa(){
     }
     if( _Ksorpresa ==2){
         cout <<" RERAQUETA";
-        juego->raqueta->reducirRaqueta();
+        if(juego->raqueta->nuevoAncho != 50){
+            juego->raqueta->reducirRaqueta();
+        }
+        else{
+            juego->juegoTerminado();
+        }
 
     }
     if( _Ksorpresa ==3){
@@ -49,7 +54,7 @@ void Sorpresa::KSorpresa(){
 
 }
 
-void Sorpresa::colision(){
+/*void Sorpresa::colision(){
     QList<QGraphicsItem *> colliding_items = collidingItems();
     double bolax = pos().x();
     double bolay = pos().y();
@@ -129,4 +134,4 @@ void Sorpresa::colision(){
         }
     }
     setPos(x()+velocidadX, y()+velocidadY);
-}
+}*/

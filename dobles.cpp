@@ -8,14 +8,15 @@ using namespace std;
 Dobles::Dobles(int _Vida, QGraphicsItem* parent): QGraphicsItemGroup(parent)
 {
     Vida = _Vida;
+}
 
 QRectF Dobles:: boundingRect() const{
-    return QRectF (0,0,95,55);
+    return QRectF (0,0,95,40);
 }
 
 void Dobles:: paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
     painter->setBrush (Qt:: red);
-    painter -> drawRoundedRect(0,0, 95, 55, 10, 10);
+    painter -> drawRoundedRect(0,0, 95, 40, 10, 10);
 }
 
 bool Dobles::Vidas(){
@@ -25,10 +26,8 @@ bool Dobles::Vidas(){
         return true;
     }
     else{
-
-
-
-
-
+        return false;
+    }
 }
+
 

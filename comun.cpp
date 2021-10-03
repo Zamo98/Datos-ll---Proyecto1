@@ -9,20 +9,11 @@ Comun::Comun(QGraphicsItem* parent): QGraphicsItemGroup(parent)
 }
 
 QRectF Comun:: boundingRect() const{
-    return QRectF (0,0,95,55);
+    return QRectF (0,0,95,40);
 }
 
 void Comun:: paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
     painter->setBrush (Qt:: yellow);
-    painter -> drawRoundedRect(0,0, 95, 55, 10, 10);
+    painter -> drawRoundedRect(0,0, 95, 40, 10, 10);
 
 }
-
-
-
-
-
-}
-
-
-

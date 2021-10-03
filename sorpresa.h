@@ -9,7 +9,7 @@ public:
     Sorpresa(int Ksorpresa, QGraphicsItem* parent = nullptr);
     int _Ksorpresa;
     void KSorpresa();
-    void colision ();
+   // void colision ();
 
 protected:
     void paint (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

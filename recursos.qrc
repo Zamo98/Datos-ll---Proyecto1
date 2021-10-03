@@ -8,5 +8,6 @@
         <file>sonidos/tono_arkanoid_amstrad_cpc_1987.mp3</file>
         <file>sonidos/game_over.mp3</file>
         <file>fuente/letras.ttf</file>
+        <file>imagenes/bola2 (1).png</file>
     </qresource>
 </RCC>
