@@ -9,12 +9,12 @@ Profundos::Profundos(QGraphicsItem* parent): QGraphicsItemGroup(parent)
 
 }
 QRectF Profundos:: boundingRect() const{
-    return QRectF (0,0,95,55);
+    return QRectF (0,0,95,40);
 }
 
 void Profundos:: paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-    painter->setBrush (Qt:: blue);
-    painter -> drawRoundedRect(0,0, 95, 55, 10, 10);
+    painter->setBrush (Qt:: black);
+    painter -> drawRoundedRect(0,0, 95, 40, 10, 10);
 
 
 }

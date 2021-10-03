@@ -27,14 +27,12 @@ public:
     int velocidadX = 3;
     int velocidadY = 3;
     int profundidad = 0;
-
     bool lanzada = false;
     void setLanzamiento(bool value);
     void seguirRaqueta();
     void reducirBola();
     void aumentarBola();
     void playSound();
-    void bolaNueva();
 
 private slots:
     void movimiento();

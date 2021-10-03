@@ -10,9 +10,9 @@ CONFIG += c++11
 
 SOURCES += \
     bola.cpp \
-    colision.cpp \
     comun.cpp \
     dobles.cpp \
+    internos.cpp \
     juego.cpp \
     main.cpp \
     profundos.cpp \
@@ -23,9 +23,9 @@ SOURCES += \
 
 HEADERS += \
     bola.h \
-    colision.h \
     comun.h \
     dobles.h \
+    internos.h \
     juego.h \
     profundos.h \
     raqueta.h \

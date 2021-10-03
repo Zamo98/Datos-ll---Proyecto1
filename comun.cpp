@@ -1,12 +1,8 @@
 #include "comun.h"
 #include <QGraphicsItemGroup>
 #include <QtGui>
-#include<QtGui>
 
-Comun::Comun(QGraphicsItem* parent): QGraphicsItemGroup(parent)
-{
-
-}
+Comun::Comun(QGraphicsItem* parent): QGraphicsItemGroup(parent){}
 
 QRectF Comun:: boundingRect() const{
     return QRectF (0,0,95,40);

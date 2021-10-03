@@ -1,4 +1,3 @@
-
 #ifndef JUEGO_H
 #define JUEGO_H
 
@@ -8,18 +7,17 @@
 #include <QFontDatabase>
 #include <QGraphicsTextItem>
 #include <QDebug>
+#include <QFont>
+#include <QGraphicsItem>
+
 #include "raqueta.h"
 #include "ventana.h"
 #include "bola.h"
 #include "comun.h"
 #include "dobles.h"
-#include <QFont>
-
 #include "triples.h"
-
 #include "sorpresa.h"
-#include <list>
-#include <QGraphicsItem>
+#include "internos.h"
 #include "profundos.h"
 
 
@@ -32,17 +30,15 @@ public:
     QGraphicsScene *scene=nullptr;
     bool gameOver;
     bool gameWin;
-    bool CB;
+    //bool CB;
     Raqueta *raqueta=nullptr;
-    Sorpresa *sorpresita;
-    Bola *bola, *bola2, *bola3, *bola4;
+    Bola *bola, *bola2, *bola3;
     Comun *comun;
     Dobles *doble;
     Triples *triple;
+    Internos *interno;
+    Sorpresa *sorpresa;
     Profundos *profundo;
-    Bola *bola;
-
-
 
     //void Cc (QGraphicsItem* Bloquesito);
     void Iniciar();
@@ -59,7 +55,6 @@ public slots:
 
 protected:
     void keyPressEvent(QKeyEvent* evento);
-    void mousePressEvent(QMouseEvent* evento);
     void mouseMoveEvent(QMouseEvent* evento);
 
 private:

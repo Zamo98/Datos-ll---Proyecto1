@@ -10,10 +10,7 @@ extern Juego* juego;
 using namespace std ;
 Sorpresa::Sorpresa(int Ksorpresa, QGraphicsItem* parent): QGraphicsItemGroup(parent)
 {
-
-
     _Ksorpresa = Ksorpresa;
-
 }
 
 QRectF Sorpresa:: boundingRect() const{
@@ -21,10 +18,8 @@ QRectF Sorpresa:: boundingRect() const{
 }
 
 void Sorpresa:: paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-    painter->setBrush (Qt:: gray);
+    painter->setBrush (Qt:: cyan);
     painter -> drawRoundedRect(0,0, 95, 40, 10, 10);
-
-
 }
 
 void Sorpresa::KSorpresa(){
