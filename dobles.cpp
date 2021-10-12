@@ -1,3 +1,10 @@
+/**
+  * @file dobles.cpp
+  * @version 1.0
+  * @date 12/10/2021
+  * @authors Yaritza López y Gustavo Zamora.
+  */
+
 #include "dobles.h"
 #include <iostream>
 #include <QGraphicsItemGroup>
@@ -5,10 +12,9 @@
 
 using namespace std;
 /**
- * @brief Dobles::Dobles
- * Clase para la creacion de bloques dobles
- * @param _Vida, este parametro es para saber cuantas colisiones resiste el bloque
- * @param parent
+ * @brief Dobles::Dobles Clase para la creacion de bloques dobles.
+ * @param _Vida Este parametro es para saber cuantas colisiones resiste el bloque.
+ * @param parent Parametro por defecto.
  */
 
 Dobles::Dobles(int _Vida, QGraphicsItem* parent): QGraphicsItemGroup(parent)
@@ -21,11 +27,10 @@ QRectF Dobles:: boundingRect() const{
 }
 
 /**
- * @brief Dobles::paint
- * Este metodo sirve para las caracteristicas de diseño del bloque
- * @param painter
- * @param option
- * @param widget
+ * @brief Dobles::paint Este método sirve para las características de diseño del bloque.
+ * @param painter Parametro por defecto.
+ * @param option Parametro por defecto.
+ * @param widget Parametro por defecto.
  */
 
 void Dobles:: paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
@@ -34,8 +39,7 @@ void Dobles:: paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     painter -> drawRoundedRect(0,0, 95, 40, 10, 10);
 }
 /**
- * @brief Dobles::Vidas
- * Este metodo sirve para que el bloque se rompa en 2 colisiones
+ * @brief Dobles::Vidas Este metodo sirve para que el bloque se rompa en 2 colisiones.
  * @return bool, que es de utilidad para saber cuando se tiene que destruir.
  */
 

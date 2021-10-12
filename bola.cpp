@@ -1,3 +1,10 @@
+/**
+  * @file bola.cpp
+  * @version 1.0
+  * @date 12/10/2021
+  * @authors Yaritza López y Gustavo Zamora.
+  */
+
 #include "bola.h"
 #include "ventana.h"
 #include "raqueta.h"
@@ -6,6 +13,8 @@
 #include "sorpresa.h"
 #include "dobles.h"
 #include "iostream"
+#include "profundos.h"
+
 #include <QGraphicsScene>
 
 extern Juego* juego;
@@ -13,8 +22,10 @@ extern Sorpresa* sorpresa;
 using namespace std;
 extern Profundos* profundos;
 
-#include "profundos.h"
-
+/**
+ * @brief Bola::Bola Constructor.
+ * @param parent Parametro por defecto.
+ */
 Bola::Bola(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem()
 {
     setPixmap(QPixmap(":/imagenes/bola"));
@@ -22,7 +33,7 @@ Bola::Bola(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem()
     largoBola = pixmap().height();
     lanzada = false;
     QTimer *timer = new QTimer();
-    connect(timer, SIGNAL(timeout()),this, SLOT(movimiento()));
+    connect(timer, SIGNAL(timeout()),this, SLOT(movimientoYColisiones()));
     timer->start(10);
     QMediaPlaylist *rebote = new QMediaPlaylist();
     rebote->addMedia(QUrl("qrc:/sonidos/resources_sounds_bounce.wav"));
@@ -30,20 +41,33 @@ Bola::Bola(QGraphicsItem *parent) : QObject(), QGraphicsPixmapItem()
     golpeBloques->setPlaylist(rebote);
 }
 
+/**
+ * @brief Bola::seguirRaqueta Su funcion es que la bola permanezca sobre la raqueta mientras no haya sido lanzada.
+ */
 void Bola::seguirRaqueta(){
     setPos(juego->raqueta->x() + (juego->raqueta->ancho - anchoBola)/2, juego->raqueta->y() - largoBola);
 }
 
+/**
+ * @brief Bola::setLanzamiento Define el estado de la bola.
+ * @param value Bool que indica si la bola fue lanzada o no.
+ */
 void Bola::setLanzamiento(bool value){
     lanzada = value;
 }
 
+/**
+ * @brief Bola::playSound Ayuda a reproducir sonidos.
+ */
 void Bola::playSound(){
     if(golpeBloques->state() == QMediaPlayer::PlayingState) golpeBloques->setPosition(0);
     else if(golpeBloques->state() == QMediaPlayer::StoppedState) golpeBloques->play();
 }
 
-void Bola::movimiento(){
+/**
+ * @brief Bola::movimiento Define el movimiento de la bola y las colisiones con los bloques, bordes y raqueta.
+ */
+void Bola::movimientoYColisiones(){
 
     QList<QGraphicsItem *> colliding_items = collidingItems();
 
@@ -592,31 +616,19 @@ void Bola::movimiento(){
     setPos(x()+velocidadX, y()+velocidadY);
 }
 
+/**
+ * @brief Bola::reducirBola Funcion que reduce la velocidad de la bola.
+ */
 void Bola::reducirBola(){
     velocidadX -= 0.5;
     velocidadY -= 0.5;
 }
+
+/**
+ * @brief Bola::aumentarBola Funcion que aumenta la velocidad de la bola.
+ */
 void Bola:: aumentarBola(){
     velocidadX += 0.5;
     velocidadY += 0.5;
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

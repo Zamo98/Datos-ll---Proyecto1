@@ -1,3 +1,10 @@
+/**
+  * @file sorpresa.cpp
+  * @version 1.0
+  * @date 12/10/2021
+  * @authors Yaritza López y Gustavo Zamora.
+  */
+
 #include "sorpresa.h"
 #include "dobles.h"
 #include <iostream>
@@ -9,10 +16,9 @@
 extern Juego* juego;
 using namespace std ;
 /**
- * @brief Sorpresa::Sorpresa
- * Clase para la creacion de bloques sorpresa
- * @param Ksorpresa
- * @param parent
+ * @brief Sorpresa::Sorpresa Clase para la creacion de bloques sorpresa
+ * @param Ksorpresa Tipo de sorpresa.
+ * @param parent Parametro por defecto.
  */
 Sorpresa::Sorpresa(int Ksorpresa, QGraphicsItem* parent): QGraphicsItemGroup(parent)
 {
@@ -23,11 +29,10 @@ QRectF Sorpresa:: boundingRect() const{
     return QRectF (0,0,95,40);
 }
 /**
- * @brief Sorpresa::paint
- * Este metodo sirve para las caracteristicas de diseño del bloque
- * @param painter
- * @param option
- * @param widget
+ * @brief Sorpresa::paint Este metodo sirve para las caracteristicas de diseño del bloque
+ * @param painter Parametro por defecto.
+ * @param option Parametro por defecto.
+ * @param widget Parametro por defecto.
  */
 void Sorpresa:: paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
     painter->setBrush (Qt:: cyan);
@@ -35,8 +40,7 @@ void Sorpresa:: paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 }
 
 /**
- * @brief Sorpresa::KSorpresa
- * Este metodo sirve para saber que sorpresa tiene cada bloque
+ * @brief Sorpresa::KSorpresa Este metodo sirve para saber que sorpresa tiene cada bloque
  */
 
 void Sorpresa::KSorpresa(){

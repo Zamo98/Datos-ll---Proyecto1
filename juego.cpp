@@ -1,3 +1,10 @@
+/**
+  * @file juego.cpp
+  * @version 1.0
+  * @date 12/10/2021
+  * @authors Yaritza López y Gustavo Zamora.
+  */
+
 #include "juego.h"
 #include <QKeyEvent>
 #include <QMouseEvent>
@@ -17,9 +24,8 @@
 #include "profundos.h"
 using namespace std;
 /**
- * @brief Juego::Juego
- * Clase del juego, aqui se definen todos los objetos y se dibujan en pantalla.
- * @param parent
+ * @brief Juego::Juego Clase del juego, aqui se definen todos los objetos y se dibujan en pantalla.
+ * @param parent Parametro por defecto.
  */
 
 Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
@@ -90,8 +96,7 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
     show();
 }
 /**
- * @brief Juego::activarCronometro
- * Este metodo activa el cronometro.
+ * @brief Juego::activarCronometro Este metodo activa el cronometro para que aparezcan más bolas despues de un tiempo.
  */
 
 void Juego::activarCronometro(){ //Metodo que activa el cronometro
@@ -119,8 +124,7 @@ void Juego::activarCronometro(){ //Metodo que activa el cronometro
 
 }
 /**
- * @brief Juego::CrearBloque
- * Este metodo crea los diferentes tipos de bloques
+ * @brief Juego::CrearBloque Este metodo crea los diferentes tipos de bloques.
  * @param y
  */
 
@@ -205,8 +209,7 @@ void Juego::CrearBloque(double y) //Dibujas los bloques
 }
 
 /**
- * @brief Juego::Iniciar
- * Este metodo inicializa los bloques
+ * @brief Juego::Iniciar Este metodo inicializa los bloques
  */
 
 
@@ -251,12 +254,8 @@ void Juego::Iniciar() { //Inicializar los bloques
     CrearBloque(0);
 }
 
-
-
-//Mover la raqueta con las teclas
 /**
- * @brief Juego::keyPressEvent
- * Este metodo se utiliza para mover la raqueta con las teclas
+ * @brief Juego::keyPressEvent Este metodo se utiliza para disparar la bola.
  * @param evento
  */
 void Juego::keyPressEvent(QKeyEvent *evento){
@@ -272,8 +271,7 @@ void Juego::keyPressEvent(QKeyEvent *evento){
 
 //Mover la raqueta con el mouse
 /**
- * @brief Juego::mouseMoveEvent
- * Este metodo se utiliza para mover la raqueta con el mouse
+ * @brief Juego::mouseMoveEvent Este metodo se utiliza para mover la raqueta con el mouse
  * @param evento
  */
 void Juego::mouseMoveEvent(QMouseEvent *evento){
@@ -282,8 +280,7 @@ void Juego::mouseMoveEvent(QMouseEvent *evento){
     }
 }
 /**
- * @brief Juego::jugadorPierde
- * Este metodo se utiliza para inicializar las acciones de cuando el jugador pierde
+ * @brief Juego::jugadorPierde Este metodo se utiliza para inicializar las acciones de cuando el jugador pierde
  */
 
 void Juego::jugadorPierde(){
@@ -314,8 +311,7 @@ void Juego::jugadorPierde(){
     }
 }
 /**
- * @brief Juego::jugadorGana
- * Este metodo inicializaa las acciones del juego cuando el jugador gane. 
+ * @brief Juego::jugadorGana Este metodo inicializaa las acciones del juego cuando el jugador gane. 
  */
 
 void Juego::jugadorGana(){
@@ -331,8 +327,7 @@ void Juego::jugadorGana(){
     scene->addItem(textoGanador);
 }
 /**
- * @brief Juego::mostrarPuntaje
- * Metodo que sirve para mostrar el puntaje del jugador en la pantalla
+ * @brief Juego::mostrarPuntaje Metodo que sirve para mostrar el puntaje del jugador en la pantalla.
  */
 
 void Juego::mostrarPuntaje(){
@@ -342,8 +337,7 @@ void Juego::mostrarPuntaje(){
     scene->addItem(texto);
 }
 /**
- * @brief Juego::setPuntos
- * Metodo que sirve para actualizar el puntaje del jugador.
+ * @brief Juego::setPuntos Metodo que sirve para actualizar el puntaje del jugador.
  */
 
 void Juego::setPuntos(){
@@ -351,8 +345,7 @@ void Juego::setPuntos(){
 }
 
 /**
- * @brief Juego::juegoTerminado
- * Este metodo inicializa las acciones que debe tomar el juego, cuando el usuario pierde 
+ * @brief Juego::juegoTerminado Este metodo inicializa las acciones que debe tomar el juego, cuando el usuario pierde.
  */
 
 

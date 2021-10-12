@@ -1,8 +1,6 @@
 #ifndef TRIPLES_H
 #define TRIPLES_H
 
-
-
 #include <QGraphicsItem>
 #include <QGraphicsItemGroup>
 
