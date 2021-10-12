@@ -8,6 +8,12 @@
 #include "bola.h"
 extern Juego* juego;
 using namespace std ;
+/**
+ * @brief Sorpresa::Sorpresa
+ * Clase para la creacion de bloques sorpresa
+ * @param Ksorpresa
+ * @param parent
+ */
 Sorpresa::Sorpresa(int Ksorpresa, QGraphicsItem* parent): QGraphicsItemGroup(parent)
 {
     _Ksorpresa = Ksorpresa;
@@ -16,11 +22,22 @@ Sorpresa::Sorpresa(int Ksorpresa, QGraphicsItem* parent): QGraphicsItemGroup(par
 QRectF Sorpresa:: boundingRect() const{
     return QRectF (0,0,95,40);
 }
-
+/**
+ * @brief Sorpresa::paint
+ * Este metodo sirve para las caracteristicas de diseño del bloque
+ * @param painter
+ * @param option
+ * @param widget
+ */
 void Sorpresa:: paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
     painter->setBrush (Qt:: cyan);
     painter -> drawRoundedRect(0,0, 95, 40, 10, 10);
 }
+
+/**
+ * @brief Sorpresa::KSorpresa
+ * Este metodo sirve para saber que sorpresa tiene cada bloque
+ */
 
 void Sorpresa::KSorpresa(){
     cout <<"HOLA EN SORPRESA";
@@ -49,84 +66,5 @@ void Sorpresa::KSorpresa(){
 
 }
 
-/*void Sorpresa::colision(){
-    QList<QGraphicsItem *> colliding_items = collidingItems();
-    double bolax = pos().x();
-    double bolay = pos().y();
-    int velocidadX = juego->bola->velocidadX;
-    int velocidadY = juego->bola->velocidadY;
 
-    for (size_t i = 0, n = colliding_items.size(); i < n; ++i)
-    {
-        Sorpresa* sorpresita = dynamic_cast<Sorpresa*>(colliding_items[i]);
-        if (sorpresita)
-        {
-            //Posiciones de la bola y de los bloques
-
-            double bloquex = sorpresita->pos().x();
-            double bloquey = sorpresita->pos().y();
-
-
-
-            if(juego->scene->items().size()==2)
-            {
-                juego->bola->velocidadX = 0;
-                juego->bola->velocidadY = 0;
-
-
-            }
-            if (bolay> bloquey-10 && velocidadY < 0 )
-             {
-                juego->bola->playSound();
-                juego->setPuntos();
-                sorpresita->KSorpresa();
-                velocidadY = -velocidadY;
-                juego->bola->golpe = false;
-                juego->puntos+=30;
-                juego->scene->removeItem(sorpresita);
-
-                continue;
-
-            }
-            if (bloquey > bolay+15 && velocidadY > 0 )
-            {
-                juego->bola->playSound();
-                juego->setPuntos();
-                sorpresita->KSorpresa();
-                velocidadY = -velocidadY;
-                juego->bola->golpe = false;
-                juego->puntos+=30;
-                juego->scene->removeItem(sorpresita);
-
-                continue;
-            }
-            if (bolax> bloquex+150 && velocidadX < 0 )
-            {
-                juego->bola->playSound();
-                juego->setPuntos();
-                sorpresita->KSorpresa();
-                velocidadX = -velocidadX;
-                juego->bola->golpe = false;
-                juego->puntos+=30;
-                juego->scene->removeItem(sorpresita);
-
-                continue;
-            }
-            if (bloquex > bolax+2 && velocidadX > 0 )
-            {
-                juego->bola->playSound();
-                juego->setPuntos();
-                sorpresita->KSorpresa();
-                velocidadX = -velocidadX;
-                juego->bola->golpe = false;
-                juego->puntos+=30;
-                juego->scene->removeItem(sorpresita);
-
-                continue;
-            }
-
-
-        }
-    }
-    setPos(x()+velocidadX, y()+velocidadY);
-}*/
+        
