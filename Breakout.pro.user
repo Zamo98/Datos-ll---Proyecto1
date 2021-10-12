@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<<<<<<< HEAD
-<!-- Written by QtCreator 4.13.1, 2021-10-02T02:22:27. -->
-=======
-<!-- Written by QtCreator 4.13.1, 2021-10-01T21:14:20. -->
->>>>>>> 911bb303a4c06d320b1c9bd9ca5e3fbe2a172c88
+<!-- Written by QtCreator 4.13.1, 2021-10-11T19:53:52. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -339,7 +335,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/gustavo/Escritorio/build-Breakout-prueba-Debug</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default"></value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

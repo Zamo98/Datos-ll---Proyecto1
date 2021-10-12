@@ -93,7 +93,18 @@ void Juego::activarCronometro(){
     else if(contador == 30){
         scene->addItem(bola3);
         bola3->setLanzamiento(true);
+        //contador=0;
+    }
+    else if(contador == 45){
+        bola->velocidadX++;
+        bola->velocidadY++;
+        bola2->velocidadX++;
+        bola2->velocidadY++;
+        bola3->velocidadX++;
+        bola3->velocidadY++;
+
         contador=0;
+
     }
 
 }

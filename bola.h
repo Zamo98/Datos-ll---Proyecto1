@@ -1,3 +1,11 @@
+/**
+  * @file bola.h
+  * @version 1.0
+  * @date 12/10/2021
+  * @authors Yaritza López y Gustavo Zamora.
+  * @brief Funciones para el funcionamiento de la bola.
+  */
+
 #ifndef BOLA_H
 #define BOLA_H
 
