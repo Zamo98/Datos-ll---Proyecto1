@@ -16,6 +16,11 @@
 #include <QList>
 #include "profundos.h"
 using namespace std;
+/**
+ * @brief Juego::Juego
+ * Clase del juego, aqui se definen todos los objetos y se dibujan en pantalla.
+ * @param parent
+ */
 
 Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
 {
@@ -84,7 +89,12 @@ Juego::Juego(QGraphicsView *parent) : QGraphicsView(parent)
 
     show();
 }
-void Juego::activarCronometro(){
+/**
+ * @brief Juego::activarCronometro
+ * Este metodo activa el cronometro.
+ */
+
+void Juego::activarCronometro(){ //Metodo que activa el cronometro
     contador++;
     if(contador == 15){
         scene->addItem(bola2);
@@ -108,6 +118,11 @@ void Juego::activarCronometro(){
     }
 
 }
+/**
+ * @brief Juego::CrearBloque
+ * Este metodo crea los diferentes tipos de bloques
+ * @param y
+ */
 
 void Juego::CrearBloque(double y) //Dibujas los bloques
 {
@@ -189,7 +204,10 @@ void Juego::CrearBloque(double y) //Dibujas los bloques
     //size_t i = 0, n = colliding_items.size(); i < n; ++i
 }
 
-
+/**
+ * @brief Juego::Iniciar
+ * Este metodo inicializa los bloques
+ */
 
 
 void Juego::Iniciar() { //Inicializar los bloques
@@ -234,7 +252,13 @@ void Juego::Iniciar() { //Inicializar los bloques
 }
 
 
+
 //Mover la raqueta con las teclas
+/**
+ * @brief Juego::keyPressEvent
+ * Este metodo se utiliza para mover la raqueta con las teclas
+ * @param evento
+ */
 void Juego::keyPressEvent(QKeyEvent *evento){
     switch (evento->key()) {
     case Qt::Key_Space:
@@ -247,11 +271,20 @@ void Juego::keyPressEvent(QKeyEvent *evento){
 }
 
 //Mover la raqueta con el mouse
+/**
+ * @brief Juego::mouseMoveEvent
+ * Este metodo se utiliza para mover la raqueta con el mouse
+ * @param evento
+ */
 void Juego::mouseMoveEvent(QMouseEvent *evento){
     if(raqueta){
         raqueta->mover(evento->pos());
     }
 }
+/**
+ * @brief Juego::jugadorPierde
+ * Este metodo se utiliza para inicializar las acciones de cuando el jugador pierde
+ */
 
 void Juego::jugadorPierde(){
     if(bola){
@@ -280,6 +313,10 @@ void Juego::jugadorPierde(){
         }
     }
 }
+/**
+ * @brief Juego::jugadorGana
+ * Este metodo inicializaa las acciones del juego cuando el jugador gane. 
+ */
 
 void Juego::jugadorGana(){
     scene->removeItem(bola);
@@ -293,6 +330,10 @@ void Juego::jugadorGana(){
     textoGanador->setPos(400,largoVentana/2);
     scene->addItem(textoGanador);
 }
+/**
+ * @brief Juego::mostrarPuntaje
+ * Metodo que sirve para mostrar el puntaje del jugador en la pantalla
+ */
 
 void Juego::mostrarPuntaje(){
     if(scene->items().contains(texto)) scene->removeItem(texto);    
@@ -300,10 +341,20 @@ void Juego::mostrarPuntaje(){
     texto->setPos((anchoVentana - 1000), largoVentana-70);
     scene->addItem(texto);
 }
+/**
+ * @brief Juego::setPuntos
+ * Metodo que sirve para actualizar el puntaje del jugador.
+ */
 
 void Juego::setPuntos(){
     mostrarPuntaje();
 }
+
+/**
+ * @brief Juego::juegoTerminado
+ * Este metodo inicializa las acciones que debe tomar el juego, cuando el usuario pierde 
+ */
+
 
 void Juego::juegoTerminado(){
     scene->removeItem(bola);
